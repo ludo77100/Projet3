@@ -51,4 +51,19 @@ public class Tools {
         }
         return testerEquals;
     }
+
+    /**
+     *
+     * Cette méthode permet d'afficher le tour en cour ainsi que d'aérer un peu la lecture de la console
+     *
+     * @param numeroTour numéro du tour en cours
+     * @param nombreDeTourConf nombre de tour possible configuré
+     */
+    public static void affichageTour(int numeroTour, int nombreDeTourConf){
+        int nbTourRestant = nombreDeTourConf - numeroTour;
+        System.out.println("\n"+"**********************************************");
+        System.out.println("Tour n°" +numeroTour+ "(nombre de tour restant: "+nbTourRestant+")");
+        System.out.println("**********************************************"+"\n");
+
+    }
 }

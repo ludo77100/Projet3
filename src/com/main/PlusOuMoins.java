@@ -29,13 +29,42 @@ public class PlusOuMoins {
         }
     }
 
+    /**
+     *
+     * @param longNbAleaConf
+     * @param choix
+     * @param nbAlea
+     * @param reponse
+     */
+    public static void mainGameChal(int longNbAleaConf, String choix, StringBuilder nbAlea, StringBuilder reponse){
+
+        for (int i = 0; i < longNbAleaConf; i++) {
+            int y = Character.getNumericValue(nbAlea.charAt(i));
+            int z = Character.getNumericValue(choix.charAt(i));
+
+            if (y == z)
+                reponse.insert(i, "=");
+
+            else if (y < z)
+                reponse.insert(i, "-");
+
+            else
+                reponse.insert(i, "+");
+        }
+
+        //display un message pour la réponse
+        System.out.println("Votre proposition est : " + choix + " -> Réponse : " + reponse);
+    }
+
     public static void plusOuMoinsChallenger() {
 
-        String choix; //Saisie de l'utlisateur
+        String choix = null; //Saisie de l'utlisateur
         StringBuilder reponse = new StringBuilder();
         StringBuilder nbAlea = new StringBuilder();
         StringBuilder testerEquals = new StringBuilder(); //prend en valeur un nombre de = égale à longNbAlea
-        int longNbAleaConf = 6; //todo A coder dans le fichier de conf
+        int longNbAleaConf = 3; //todo A coder dans le fichier de conf
+        int nombreTourConf = 4; //todo A coder dans le fichier de conf
+        int i = 0;
         Scanner sc = new Scanner(System.in);
 
         nbAlea = Tools.geneNbAlea(longNbAleaConf); //Génération du nombre aléatoire
@@ -43,38 +72,21 @@ public class PlusOuMoins {
 
         System.out.println(nbAlea);
 
-        do{
-
-            reponse.delete(0, longNbAleaConf);//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
-
-            //Demande de première saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
             do {
-                System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
-                choix = sc.next();
-            }while (choix.length() != longNbAleaConf);
+                    reponse.delete(0, longNbAleaConf);//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
+                        //Demande de première saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
+                        do {
+                            i++;
+                            Tools.affichageTour(i, nombreTourConf);
+                            System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
+                            choix = sc.next();
+                        } while (choix.length() != longNbAleaConf);
 
+                        mainGameChal(longNbAleaConf, choix, nbAlea, reponse);
 
-            for (int i = 0; i < longNbAleaConf; i++) {
-                int y = Character.getNumericValue(nbAlea.charAt(i));
-                int z = Character.getNumericValue(choix.charAt(i));
-
-                if (y == z)
-                    reponse.insert(i, "=");
-
-                 else if (y < z)
-                    reponse.insert(i, "-");
-
-                 else
-                    reponse.insert(i, "+");
-            }
-
-            //display un message pour la réponse
-            System.out.println("Votre proposition est : "+choix+ " -> Réponse : " +reponse);
-
-        }while (!reponse.toString().equals(testerEquals.toString()));
+            } while (!reponse.toString().equals(testerEquals.toString()) && i < nombreTourConf);
 
         System.out.println("Bravo ! Vous avez trouvé la combinaison secrète ! (" +choix+ ")");
-        System.out.println(" ");
 
         //On propose de rejouer, choisir un autre jeux ou quitter le programme
         System.out.println("Que souhaitez vous faire ? 1: Rejouer -- 2: Choisir un autre jeu --3: Quitter");
@@ -91,33 +103,7 @@ public class PlusOuMoins {
         }
     }
 
-    public static void plusOuMoinsDefenseur(){
-
-        Random r = new Random();
-        StringBuilder reponseOrdi = new StringBuilder(); //Nombre généré par l'ordinateur
-        String reponseEnSigne; //Saisie de l'utlisateur
-        String codeSecretUtilisateur;
-        StringBuilder testerEquals = new StringBuilder(); //prend en valeur un nombre de = égale à longNbAlea
-        int longNbAleaConf = 6; //todo A coder dans le fichier de conf
-        int nombreTourConf = 10; //todo A coder dans le fichier de conf
-
-        //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
-        System.out.println("Veuillez saisir un nombre ! (" +longNbAleaConf+")");
-        Scanner sc = new Scanner(System.in);
-        codeSecretUtilisateur = sc.next();
-
-        reponseOrdi = Tools.geneNbAlea(longNbAleaConf);
-        testerEquals = Tools.geneTesterEquals(longNbAleaConf);
-
-        //Ici l'ordinateur doit générer une nouvelle réponse en fonction de la variable choix
-        do{
-
-            //On récupère ici la réponse de l'utilisateur
-            System.out.println("L'ordinateur vous donne comme réponse : "+reponseOrdi);
-            System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est "+codeSecretUtilisateur+")");
-            reponseEnSigne = sc.next();
-            System.out.println("Vous avez saisi: " +reponseEnSigne);
-
+    public static void mainGameDef(int longNbAleaConf, String reponseEnSigne, StringBuilder reponseOrdi, Random r){
         for(int i = 0; i < longNbAleaConf; i++) {
             switch (reponseEnSigne.charAt(i)) {
                 case ('='):
@@ -141,14 +127,111 @@ public class PlusOuMoins {
                         reponseOrdi.deleteCharAt(i);
                         reponseOrdi.insert(i, geneNbAleay);
                     }
-                }
             }
-        }while (!reponseEnSigne.equals(testerEquals.toString()));
+        }
+    }
+
+    public static void plusOuMoinsDefenseur(){
+
+        Random r = new Random();
+        StringBuilder reponseOrdi = new StringBuilder(); //Nombre généré par l'ordinateur
+        String reponseEnSigne; //Saisie de l'utlisateur
+        String codeSecretUtilisateur;
+        StringBuilder testerEquals = new StringBuilder(); //prend en valeur un nombre de = égale à longNbAlea
+        int longNbAleaConf = 6; //todo A coder dans le fichier de conf
+        int nombreTourConf = 10; //todo A coder dans le fichier de conf
+        int i = 0;
+
+        //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
+        System.out.println("Veuillez saisir un nombre ! (" +longNbAleaConf+")");
+        Scanner sc = new Scanner(System.in);
+        codeSecretUtilisateur = sc.next();
+
+        reponseOrdi = Tools.geneNbAlea(longNbAleaConf);
+        testerEquals = Tools.geneTesterEquals(longNbAleaConf);
+
+        //Ici l'ordinateur doit générer une nouvelle réponse en fonction de la variable choix
+        do{
+
+            i++;
+            Tools.affichageTour(i, nombreTourConf);
+            //On récupère ici la réponse de l'utilisateur
+            System.out.println("L'ordinateur vous donne comme réponse : "+reponseOrdi);
+            System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est "+codeSecretUtilisateur+")");
+            reponseEnSigne = sc.next();
+            System.out.println("Vous avez saisi: " +reponseEnSigne);
+
+            mainGameDef(longNbAleaConf, reponseEnSigne, reponseOrdi, r);
+
+        }while (!reponseEnSigne.equals(testerEquals.toString()) && i < nombreTourConf);
 
         System.out.println("L'ordinateur a gagné !");
     }
 
     public static void plusOuMoinsDuel(){
 
+        Random r = new Random();
+
+        StringBuilder reponseOrdi = new StringBuilder(); //Nombre généré par l'ordinateur
+        StringBuilder testerEquals = new StringBuilder(); //prend en valeur un nombre de = égale à longNbAlea
+        StringBuilder reponse = new StringBuilder();
+        StringBuilder nbAlea = new StringBuilder();
+
+        String reponseEnSigne; //Saisie de l'utlisateur
+        String codeSecretUtilisateur;
+        String choix; //Saisie de l'utlisateur
+
+        int longNbAleaConf = 3; //todo A coder dans le fichier de conf
+        int gagnant ;
+
+        Scanner sc = new Scanner(System.in);
+
+        reponseOrdi =  Tools.geneNbAlea(longNbAleaConf);
+        nbAlea = Tools.geneNbAlea(longNbAleaConf);
+        testerEquals = Tools.geneTesterEquals(longNbAleaConf);
+
+        System.out.println("L'odinateur commence !");
+
+        //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
+        System.out.println("Veuillez saisir le nombre que l'ordinateur doit deviner ! ("+longNbAleaConf+" chiffres)");
+        codeSecretUtilisateur = sc.next();
+
+        do {
+
+            System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
+            System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
+            reponseEnSigne = sc.next();
+            System.out.println("Vous avez saisi: " + reponseEnSigne);
+            mainGameDef(longNbAleaConf, reponseEnSigne, reponseOrdi, r);
+
+            if (reponseEnSigne.equals(testerEquals.toString())) {
+                gagnant = 1;
+                break;
+            } else {
+
+                System.out.println("A votre tour, à vous de trouver le nombre de l'ordinateur");
+                System.out.println(nbAlea);
+
+                reponse.delete(0, longNbAleaConf);//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
+
+                //Demande de première saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
+                do {
+                    System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
+                    choix = sc.next();
+                } while (choix.length() != longNbAleaConf);
+
+                mainGameChal(longNbAleaConf, choix, nbAlea, reponse);
+                gagnant = 2;
+            }
+        }
+            while (!reponse.toString().equals(testerEquals.toString())) ;
+        switch (gagnant) {
+            case 1:
+                System.out.println("L'ordinateur a gagné !");
+                break;
+            case 2:
+                System.out.println("Vous avez gagné !");
+                break;
+        }
     }
 }
