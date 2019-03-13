@@ -31,10 +31,12 @@ public class PlusOuMoins {
 
     /**
      *
-     * @param longNbAleaConf
-     * @param choix
-     * @param nbAlea
-     * @param reponse
+     * Cette méthode permet de généré la réponse en fonction de la réponse de l'utilisateur
+     *
+     * @param longNbAleaConf passé dans le fichier conf, longueur du nombre à trouvé
+     * @param choix c'est la réponse rentré par l'utilisateur
+     * @param nbAlea ce nombre est généré aléatoirement (dans Tools méthode geneNbAlea)
+     * @param reponse réponse généré par l'ordinateur (avec les signes =+-)
      */
     public static void mainGameChal(int longNbAleaConf, String choix, StringBuilder nbAlea, StringBuilder reponse){
 
@@ -58,7 +60,7 @@ public class PlusOuMoins {
 
     public static void plusOuMoinsChallenger() {
 
-        String choix = null; //Saisie de l'utlisateur
+        String choix ; //Saisie de l'utlisateur
         StringBuilder reponse = new StringBuilder();
         StringBuilder nbAlea = new StringBuilder();
         StringBuilder testerEquals = new StringBuilder(); //prend en valeur un nombre de = égale à longNbAlea
