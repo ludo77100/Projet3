@@ -23,6 +23,14 @@ public class Tools {
         }
     }
 
+    /**
+     * Méthode pour générer un nombre aléatoire
+     *
+     * @param longNbAleaConf la longueur du nombre devant être gégéré
+     * @param lowBound limite basse pour la génération du chiffre aléatoire
+     * @param highBound limite haute pour la génération du
+     * @return le nombre aléatoire dans un type StringBuilder
+     */
     public static StringBuilder geneNbAlea(int longNbAleaConf, int lowBound, int highBound) {
 
         Random r = new Random();
@@ -51,6 +59,13 @@ public class Tools {
         return testerEquals;
     }
 
+    /**
+     * Méthode permettant de tester la victoire ou non du joueur
+     *
+     * @param reponse reponse donné par le défenseur (avec les signes + - =)
+     * @param longNbAlea longueur du nombre aléatoire
+     * @return false: Mauvaise combianaison, true: Bonne combinaison
+     */
     public static boolean combinaisonValide(StringBuilder reponse, int longNbAlea){
 
         for (int i=0; i < longNbAlea; i++){
@@ -59,23 +74,6 @@ public class Tools {
         }
         return true;
     }
-    /*
-    public static boolean combinaisonValide(StringBuilder reponse, int longNbAlea){
-
-        int i = 0;
-        boolean tester ;
-
-        while (i <= longNbAlea -1 && reponse.charAt(i) == '=' )
-            i++;
-
-        if (i  == longNbAlea)
-            tester = true;
-        else
-            tester = false;
-
-        return tester;
-    }
-*/
 
     /**
      *
