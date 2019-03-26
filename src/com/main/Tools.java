@@ -15,8 +15,7 @@ public class Tools {
             case 1:
                 PlusOuMoins.choixMode();
             case 2:
-                System.out.println("Veuilez choisir votre mode de jeu. 1 - Challenger, 2 - Défenseur, 3 - Duel");
-                //Mastermind();
+                Mastermind.choixMode();
                 break;
             default:
                 gameChoice();
@@ -24,13 +23,13 @@ public class Tools {
         }
     }
 
-    public static StringBuilder geneNbAlea(int longNbAleaConf) {
+    public static StringBuilder geneNbAlea(int longNbAleaConf, int lowBound, int highBound) {
 
         Random r = new Random();
         StringBuilder nbAlea = new StringBuilder();
 
         for (int i = 0; i < longNbAleaConf; i++) {
-            int geneNbAlea = 1 + r.nextInt(9 - 1);
+            int geneNbAlea = lowBound + r.nextInt(highBound - lowBound);
             nbAlea.insert(i, geneNbAlea);
         }
         return nbAlea;

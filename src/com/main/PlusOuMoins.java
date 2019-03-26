@@ -31,7 +31,7 @@ public class PlusOuMoins {
 
     /**
      *
-     * Cette méthode permet de généré la réponse en fonction de la réponse de l'utilisateur
+     * Cette méthode permet de générer la réponse en fonction de la réponse de l'utilisateur
      *
      * @param longNbAleaConf passé dans le fichier conf, longueur du nombre à trouvé
      * @param choix c'est la réponse rentré par l'utilisateur
@@ -71,7 +71,7 @@ public class PlusOuMoins {
         Scanner sc = new Scanner(System.in);
         boolean winLoose ;
 
-        nbAlea = Tools.geneNbAlea(longNbAleaConf); //Génération du nombre aléatoire
+        nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
         testerEquals = Tools.geneTesterEquals(longNbAleaConf); //Génération du testeur pour arréter la boucle du jeu si réponse ok
 
         System.out.println(nbAlea);
@@ -171,7 +171,7 @@ public class PlusOuMoins {
         Scanner sc = new Scanner(System.in);
         codeSecretUtilisateur = sc.next();
 
-        reponseOrdi = Tools.geneNbAlea(longNbAleaConf);
+        reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9);
         testerEquals = Tools.geneTesterEquals(longNbAleaConf);
 
         //Ici l'ordinateur doit générer une nouvelle réponse en fonction de la variable choix
@@ -210,8 +210,8 @@ public class PlusOuMoins {
 
         Scanner sc = new Scanner(System.in);
 
-        reponseOrdi =  Tools.geneNbAlea(longNbAleaConf);
-        nbAlea = Tools.geneNbAlea(longNbAleaConf);
+        reponseOrdi =  Tools.geneNbAlea(longNbAleaConf, 1, 9);
+        nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9);
         testerEquals = Tools.geneTesterEquals(longNbAleaConf);
 
         System.out.println("L'odinateur commence !");
