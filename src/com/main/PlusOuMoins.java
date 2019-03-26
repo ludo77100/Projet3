@@ -37,6 +37,7 @@ public class PlusOuMoins {
      * @param choix c'est la réponse rentré par l'utilisateur
      * @param nbAlea ce nombre est généré aléatoirement (dans Tools méthode geneNbAlea)
      * @param reponse réponse généré par l'ordinateur (avec les signes =+-)
+     *
      */
     public static void mainGameChal(int longNbAleaConf, String choix, StringBuilder nbAlea, StringBuilder reponse){
 
@@ -68,6 +69,7 @@ public class PlusOuMoins {
         int nombreTourConf = 4; //todo A coder dans le fichier de conf
         int i = 0;
         Scanner sc = new Scanner(System.in);
+        boolean winLoose ;
 
         nbAlea = Tools.geneNbAlea(longNbAleaConf); //Génération du nombre aléatoire
         testerEquals = Tools.geneTesterEquals(longNbAleaConf); //Génération du testeur pour arréter la boucle du jeu si réponse ok
@@ -85,10 +87,22 @@ public class PlusOuMoins {
                         } while (choix.length() != longNbAleaConf);
 
                         mainGameChal(longNbAleaConf, choix, nbAlea, reponse);
+                        winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);
 
-            } while (!reponse.toString().equals(testerEquals.toString()) && i < nombreTourConf);
+                        /*
+                        if (!reponse.toString().equals(testerEquals.toString()))
+                            winLoose = false;
+                        else
+                            winLoose = true ;
+                        */
 
-        System.out.println("Bravo ! Vous avez trouvé la combinaison secrète ! (" +choix+ ")");
+            } while (!winLoose && i < nombreTourConf);
+
+        if (!winLoose)
+            System.out.println("Vous avez perdu !");
+        else
+            System.out.println("Bravo ! Vous avez trouvé la combinaison secrète ! (" + choix + ")");
+
 
         //On propose de rejouer, choisir un autre jeux ou quitter le programme
         System.out.println("Que souhaitez vous faire ? 1: Rejouer -- 2: Choisir un autre jeu --3: Quitter");
@@ -105,6 +119,14 @@ public class PlusOuMoins {
         }
     }
 
+
+    /**
+     *
+     * @param longNbAleaConf
+     * @param reponseEnSigne
+     * @param reponseOrdi
+     * @param r 
+     */
     public static void mainGameDef(int longNbAleaConf, String reponseEnSigne, StringBuilder reponseOrdi, Random r){
         for(int i = 0; i < longNbAleaConf; i++) {
             switch (reponseEnSigne.charAt(i)) {

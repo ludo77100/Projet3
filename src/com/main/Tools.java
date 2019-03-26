@@ -52,6 +52,32 @@ public class Tools {
         return testerEquals;
     }
 
+    public static boolean combinaisonValide(StringBuilder reponse, int longNbAlea){
+
+        for (int i=0; i < longNbAlea; i++){
+            if (reponse.charAt(i) != '=')
+                return false;
+        }
+        return true;
+    }
+    /*
+    public static boolean combinaisonValide(StringBuilder reponse, int longNbAlea){
+
+        int i = 0;
+        boolean tester ;
+
+        while (i <= longNbAlea -1 && reponse.charAt(i) == '=' )
+            i++;
+
+        if (i  == longNbAlea)
+            tester = true;
+        else
+            tester = false;
+
+        return tester;
+    }
+*/
+
     /**
      *
      * Cette méthode permet d'afficher le tour en cour ainsi que d'aérer un peu la lecture de la console
