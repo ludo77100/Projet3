@@ -30,7 +30,6 @@ public class PlusOuMoins {
     }
 
     /**
-     *
      * Cette méthode permet de générer la réponse en fonction de la réponse de l'utilisateur
      *
      * @param longNbAleaConf passé dans le fichier conf, longueur du nombre à trouvé
@@ -64,15 +63,16 @@ public class PlusOuMoins {
         String choix ; //Saisie de l'utlisateur
         StringBuilder reponse = new StringBuilder();
         StringBuilder nbAlea = new StringBuilder();
-        StringBuilder testerEquals = new StringBuilder(); //prend en valeur un nombre de = égale à longNbAlea
+
         int longNbAleaConf = 3; //todo A coder dans le fichier de conf
         int nombreTourConf = 4; //todo A coder dans le fichier de conf
         int i = 0;
+
         Scanner sc = new Scanner(System.in);
+
         boolean winLoose ;
 
         nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
-        testerEquals = Tools.geneTesterEquals(longNbAleaConf); //Génération du testeur pour arréter la boucle du jeu si réponse ok
 
         System.out.println(nbAlea);
 
@@ -89,12 +89,6 @@ public class PlusOuMoins {
                         mainGameChal(longNbAleaConf, choix, nbAlea, reponse);
                         winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);
 
-                        /*
-                        if (!reponse.toString().equals(testerEquals.toString()))
-                            winLoose = false;
-                        else
-                            winLoose = true ;
-                        */
 
             } while (!winLoose && i < nombreTourConf);
 
