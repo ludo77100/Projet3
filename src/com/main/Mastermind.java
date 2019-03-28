@@ -30,12 +30,14 @@ public class Mastermind {
 
         int longNbAleaConf = 4; //todo A coder dans le fichier de conf //Longueur de la combinaison
         int nombreTourConf = 10; //todo A coder dans le fichier de conf//nombre de tour possible
-        int nombreChiffresUtilisables = 4; //todo A coder dans le fichier de conf//nombre de chiffres utilisables
+        int nombreChiffresUtilisables = 9; //todo A coder dans le fichier de conf//nombre de chiffres utilisables
         int numeroTour = 0;//Compteur de nombre de tour
         int nombrePositionOk = 0 ;
+        int nombreMauvaisePlace = 0;
 
-        String tentativeCombinaison ;
+        String recupSaisieUtilisateur ;
 
+        StringBuilder tentativeCombinaison = new StringBuilder();
         StringBuilder combinaisonSecrete = new StringBuilder();//Combinaison secrète généré par l'ordinateur
 
         Scanner sc = new Scanner(System.in);
@@ -48,7 +50,8 @@ public class Mastermind {
         numeroTour++;
         Tools.affichageTour(numeroTour, nombreTourConf);
         System.out.println("Veuillez saisir une combinaison (Chiffre de 1 à " +nombreChiffresUtilisables+ ")");
-        tentativeCombinaison = sc.next();
+        recupSaisieUtilisateur = sc.next();
+        tentativeCombinaison.append(recupSaisieUtilisateur);
 
         //Comparer la réponse de l'utilisateur à la solutions
         //Générer la réponse de l'ordinateur
@@ -56,9 +59,22 @@ public class Mastermind {
         for (int i = 0; i < longNbAleaConf; i++){
             if (combinaisonSecrete.toString().charAt(i) == tentativeCombinaison.charAt(i)){
                 nombrePositionOk++;
+                tentativeCombinaison.setCharAt(i, 'z');
             }
         }
+
+        for(int i = 0; i < longNbAleaConf; i++){
+            for (int k = 0 ; k < longNbAleaConf; k++) {
+                char j = combinaisonSecrete.charAt(i);
+                if (tentativeCombinaison.charAt(k) == j) {
+                    nombreMauvaisePlace++;
+                    tentativeCombinaison.setCharAt(k, 'z');
+                }
+            }
+        }
+        System.out.println(tentativeCombinaison);
         System.out.println("Vous avez " +nombrePositionOk+ " pion en bonne position");
+        System.out.println("Vous avez " +nombreMauvaisePlace+ " pion en mauvaise position");
         //Afficher la réponse de l'ordinateure
         //En fonction de la réponse, nouveau tour ou fin de jeu
         //Message pour rejouer, changer de jeu ou quitter
