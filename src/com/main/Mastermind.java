@@ -118,9 +118,6 @@ public class Mastermind {
         int nombreTourConf = 10; //todo A coder dans le fichier de conf//nombre de tour possible
         int nombreChiffresUtilisables = 9; //todo A coder dans le fichier de conf//nombre de chiffres utilisables
         int numeroTour = 0;//Compteur de nombre de tour
-        int nombrePositionOk = 0;
-        int nombrePositionMauvaise = 0;
-        int nombreMauvais = 0;
 
         String recupSaisieUtilisateur ;
 
@@ -158,5 +155,9 @@ public class Mastermind {
         System.out.println("L'ordinateur à perdu !");
         else
         System.out.println("L'ordinateur à gagné en "+numeroTour+" tours !");
+    }
+
+    public static void mastermindDuel(){
+
     }
 }
