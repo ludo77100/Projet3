@@ -4,34 +4,18 @@ import java.util.Scanner;
 
 public class Mastermind {
 
-    public static void choixMode(){
+    private int longNbAleaConf ; //todo A coder dans le fichier de conf //Longueur de la combinaison
+    private int nombreTourConf ; //todo A coder dans le fichier de conf//nombre de tour possible
+    private int nombreChiffresUtilisables ; //todo A coder dans le fichier de conf//nombre de chiffres utilisables
 
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Veuilez choisir votre mode de jeu. 1 - Challenger, 2 - Défenseur, 3 - Duel");
-        int choixMode = sc.nextInt();
-        switch (choixMode) {
-            case 1:
-                System.out.println("Bienvenue dans le Mastermind, mode Challenger !");
-                mastermindChallenger();
-                break;
-            case 2:
-                System.out.println("Bienvenue dans le Mastermind, mode Défenseur !");
-                mastermindDefenseur();
-                break;
-            case 3:
-                System.out.println("Bievenue dans le Mastermind, mode duel !");
-                break;
-            default:
-                Tools.gameChoice();
-        }
+    public Mastermind(int longNbAleaConf, int nombreTourConf, int nombreChiffresUtilisables) {
+        this.longNbAleaConf = longNbAleaConf;
+        this.nombreTourConf = nombreTourConf;
+        this.nombreChiffresUtilisables = nombreChiffresUtilisables;
     }
 
-    public static void mastermindChallenger() {
+    public void mastermindChallenger() {
 
-        int longNbAleaConf = 4; //todo A coder dans le fichier de conf //Longueur de la combinaison
-        int nombreTourConf = 4; //todo A coder dans le fichier de conf//nombre de tour possible
-        int nombreChiffresUtilisables = 9; //todo A coder dans le fichier de conf//nombre de chiffres utilisables
         int numeroTour = 0;//Compteur de nombre de tour
         int nombrePositionOk = 0;
         int nombrePositionMauvaise = 0;
@@ -96,27 +80,10 @@ public class Mastermind {
             System.out.println("Bravo, vous avez gagné");
         else
             System.out.println("Vous avez perdu !");
-
-        //On propose de rejouer, choisir un autre jeux ou quitter le programme
-        System.out.println("Que souhaitez vous faire ? 1: Rejouer -- 2: Choisir un autre jeu --3: Quitter");
-        int replay = sc.nextInt();
-        switch (replay) {
-            case 1:
-                mastermindChallenger();
-                break;
-            case 2:
-                Tools.gameChoice();
-                break;
-            case 3:
-                return;
-        }
     }
 
-    public static void mastermindDefenseur() {
+    public void mastermindDefenseur() {
 
-        int longNbAleaConf = 4; //todo A coder dans le fichier de conf //Longueur de la combinaison
-        int nombreTourConf = 10; //todo A coder dans le fichier de conf//nombre de tour possible
-        int nombreChiffresUtilisables = 9; //todo A coder dans le fichier de conf//nombre de chiffres utilisables
         int numeroTour = 0;//Compteur de nombre de tour
 
         String recupSaisieUtilisateur ;
@@ -157,7 +124,7 @@ public class Mastermind {
         System.out.println("L'ordinateur à gagné en "+numeroTour+" tours !");
     }
 
-    public static void mastermindDuel(){
+    public void mastermindDuel(){
 
     }
 }

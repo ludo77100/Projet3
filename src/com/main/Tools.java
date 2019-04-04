@@ -5,24 +5,6 @@ import java.util.Scanner;
 
 public class Tools {
 
-    public static void gameChoice() {
-        System.out.println("Veuillez choisir votre jeux");
-        System.out.println("1: Recherche +/-");
-        System.out.println("2: Mastermind");
-        Scanner sc = new Scanner(System.in);
-        int choixJeu = sc.nextInt();
-        switch (choixJeu) {
-            case 1:
-                PlusOuMoins.choixMode();
-            case 2:
-                Mastermind.choixMode();
-                break;
-            default:
-                gameChoice();
-                break;
-        }
-    }
-
     /**
      * Méthode pour générer un nombre aléatoire
      *
@@ -88,5 +70,12 @@ public class Tools {
         System.out.println("Tour n°" +numeroTour+ "(nombre de tour restant: "+nbTourRestant+")");
         System.out.println("**********************************************"+"\n");
 
+    }
+
+    public static void winLoose (boolean winLoose){
+        if (!winLoose)
+            System.out.println("L'ordinateur à perdu !");
+        else
+            System.out.println("L'ordinateur a gagné !");
     }
 }
