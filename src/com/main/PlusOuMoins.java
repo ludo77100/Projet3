@@ -144,7 +144,6 @@ public class PlusOuMoins {
 
             //Ici l'ordinateur doit générer une nouvelle réponse en fonction de la variable choix
             do {
-
                 numeroTour++;
                 reponseEnSigne.delete(0, reponseEnSigne.length());
                 Tools.affichageTour(numeroTour, nombreTourConf);
@@ -159,9 +158,7 @@ public class PlusOuMoins {
 
                 mainGameDef(longNbAleaConf, saisieUtilisateur, reponseOrdi, r);
                 winLoose = Tools.combinaisonValide(reponseEnSigne, longNbAleaConf);
-
             } while  (!winLoose && numeroTour < nombreTourConf );
-
             Tools.winLoose(winLoose);
             replay = Menu.finDePArtie();
         }
@@ -177,21 +174,22 @@ public class PlusOuMoins {
             Random r = new Random();
 
             StringBuilder reponseOrdi = new StringBuilder(); //Nombre généré par l'ordinateur
-            StringBuilder testerEquals = new StringBuilder(); //prend en valeur un nombre de = égale à longNbAlea
             StringBuilder reponse = new StringBuilder();
             StringBuilder nbAlea = new StringBuilder();
+            StringBuilder reponseEnSigne = new StringBuilder();
 
-            String reponseEnSigne; //Saisie de l'utlisateur
+            String saisieUtilisateur; //Saisie de l'utlisateur
             String codeSecretUtilisateur;
             String choix; //Saisie de l'utlisateur
 
             int gagnant;
+            boolean winLoose;
 
             Scanner sc = new Scanner(System.in);
 
             reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9);
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9);
-            testerEquals = Tools.geneTesterEquals(longNbAleaConf);
+
 
             System.out.println("L'odinateur commence !");
 
@@ -203,11 +201,13 @@ public class PlusOuMoins {
 
                 System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
                 System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
-                reponseEnSigne = sc.next();
-                System.out.println("Vous avez saisi: " + reponseEnSigne);
-                mainGameDef(longNbAleaConf, reponseEnSigne, reponseOrdi, r);
-
-                if (reponseEnSigne.equals(testerEquals.toString())) {
+                saisieUtilisateur = sc.next();
+                System.out.println("Vous avez saisi: " + saisieUtilisateur);
+                mainGameDef(longNbAleaConf, saisieUtilisateur, reponseOrdi, r);
+                reponseEnSigne.delete(0, reponseEnSigne.length());
+                reponseEnSigne.append(saisieUtilisateur);
+                winLoose = Tools.combinaisonValide(reponseEnSigne, longNbAleaConf);
+                if (winLoose) {
                     gagnant = 1;
                     break;
                 } else {
@@ -224,9 +224,10 @@ public class PlusOuMoins {
                     } while (choix.length() != longNbAleaConf);
 
                     mainGameChal(longNbAleaConf, choix, nbAlea, reponse);
+                    winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);
                     gagnant = 2;
                 }
-            }while (!reponse.toString().equals(testerEquals.toString()));
+            }while (!winLoose);
 
             switch (gagnant) {
                 case 1:
