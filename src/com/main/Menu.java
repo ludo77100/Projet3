@@ -52,6 +52,7 @@ public class Menu {
                         break;
                     case 3:
                         System.out.println("Bievenue dans le Mastermind, mode duel !");
+                        mastermind.mastermindDuel();
                         break;
                     default:
                         Menu.gameChoice();

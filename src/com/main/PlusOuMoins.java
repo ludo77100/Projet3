@@ -23,7 +23,7 @@ public class PlusOuMoins {
      * @param reponse réponse généré par l'ordinateur (avec les signes =+-)
      *
      */
-    public void mainGameChal(int longNbAleaConf, String choix, StringBuilder nbAlea, StringBuilder reponse){
+    private void mainGameChal(int longNbAleaConf, String choix, StringBuilder nbAlea, StringBuilder reponse){
 
         for (int i = 0; i < longNbAleaConf; i++) {
             int y = Character.getNumericValue(nbAlea.charAt(i));
@@ -94,7 +94,7 @@ public class PlusOuMoins {
      * @param reponseOrdi
      * @param r 
      */
-    public void mainGameDef(int longNbAleaConf, String reponseEnSigne, StringBuilder reponseOrdi, Random r){
+    private void mainGameDef(int longNbAleaConf, String reponseEnSigne, StringBuilder reponseOrdi, Random r){
         for(int i = 0; i < longNbAleaConf; i++) {
             switch (reponseEnSigne.charAt(i)) {
                 case ('='):
@@ -201,8 +201,6 @@ public class PlusOuMoins {
 
             do {
 
-                System.out.println();
-
                 System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
                 System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
                 reponseEnSigne = sc.next();
@@ -228,8 +226,8 @@ public class PlusOuMoins {
                     mainGameChal(longNbAleaConf, choix, nbAlea, reponse);
                     gagnant = 2;
                 }
-            }
-            while (!reponse.toString().equals(testerEquals.toString()));
+            }while (!reponse.toString().equals(testerEquals.toString()));
+
             switch (gagnant) {
                 case 1:
                     System.out.println("L'ordinateur a gagné !");
