@@ -73,34 +73,42 @@ public class Mastermind {
 
     public void mastermindChallenger() {
 
-        int numeroTour = 0;//Compteur de nombre de tour
-        int nombrePositionOk = 0;
-        int nombrePositionMauvaise = 0;
-        int nombreMauvais = 0;
+        boolean replay = true;
 
-        String recupSaisieUtilisateur = new String();
+        while (replay == true) {
 
-        StringBuilder tentativeCombinaison = new StringBuilder();
-        StringBuilder combinaisonSecrete = new StringBuilder();//Combinaison secrète généré par l'ordinateur
+            replay = false;
 
-        Scanner sc = new Scanner(System.in);
+            int numeroTour = 0;//Compteur de nombre de tour
+            int nombrePositionOk = 0;
+            int nombrePositionMauvaise = 0;
+            int nombreMauvais = 0;
 
-        //L'ordinateur doit générer la solution
-        combinaisonSecrete = Tools.geneNbAlea(longNbAleaConf, 1, nombreChiffresUtilisables);
-        System.out.println(combinaisonSecrete);
+            String recupSaisieUtilisateur = new String();
 
-        do {
+            StringBuilder tentativeCombinaison = new StringBuilder();
+            StringBuilder combinaisonSecrete = new StringBuilder();//Combinaison secrète généré par l'ordinateur
 
-            numeroTour++;
-            Tools.affichageTour(numeroTour, nombreTourConf);
-            nombrePositionOk = mainGameChal(nombrePositionOk, nombrePositionMauvaise, nombreMauvais, recupSaisieUtilisateur, tentativeCombinaison, sc, combinaisonSecrete);
+            Scanner sc = new Scanner(System.in);
 
-        } while (nombrePositionOk != longNbAleaConf && numeroTour < nombreTourConf);
+            //L'ordinateur doit générer la solution
+            combinaisonSecrete = Tools.geneNbAlea(longNbAleaConf, 1, nombreChiffresUtilisables);
+            System.out.println(combinaisonSecrete);
 
-        if (nombrePositionOk == longNbAleaConf)
-            System.out.println("Bravo, vous avez gagné");
-        else
-            System.out.println("Vous avez perdu !");
+            do {
+
+                numeroTour++;
+                Tools.affichageTour(numeroTour, nombreTourConf);
+                nombrePositionOk = mainGameChal(nombrePositionOk, nombrePositionMauvaise, nombreMauvais, recupSaisieUtilisateur, tentativeCombinaison, sc, combinaisonSecrete);
+
+            } while (nombrePositionOk != longNbAleaConf && numeroTour < nombreTourConf);
+
+            if (nombrePositionOk == longNbAleaConf)
+                System.out.println("Bravo, vous avez gagné");
+            else
+                System.out.println("Vous avez perdu !");
+            replay = Menu.finDePArtie();
+        }
     }
 
     private StringBuilder mainGameDef(StringBuilder tentativeCombinaison, StringBuilder combinaisonSecrete) {
@@ -116,6 +124,12 @@ public class Mastermind {
     }
 
     public void mastermindDefenseur() {
+
+        boolean replay = true ;
+
+        while (replay == true){
+
+            replay = false ;
 
         int numeroTour = 0;//Compteur de nombre de tour
 
@@ -150,6 +164,8 @@ public class Mastermind {
         System.out.println("L'ordinateur à perdu !");
         else
         System.out.println("L'ordinateur à gagné en "+numeroTour+" tours !");
+        replay = Menu.finDePArtie();
+    }
     }
 
     public void mastermindDuel() {

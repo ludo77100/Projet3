@@ -183,6 +183,7 @@ public class PlusOuMoins {
             String choix; //Saisie de l'utlisateur
 
             int gagnant;
+            int numeroTour = 0;
             boolean winLoose;
 
             Scanner sc = new Scanner(System.in);
@@ -198,7 +199,8 @@ public class PlusOuMoins {
             codeSecretUtilisateur = sc.next();
 
             do {
-
+                numeroTour++;
+                Tools.affichageTour(numeroTour, nombreTourConf);
                 System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
                 System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
                 saisieUtilisateur = sc.next();
