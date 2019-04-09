@@ -6,8 +6,15 @@ public class Menu {
 
     public static void gameChoice() {
 
-        PlusOuMoins plusOuMoins = new PlusOuMoins(4, 10);
-        Mastermind mastermind = new Mastermind(4, 10, 4);
+        Config config = new Config("src/ressources/config.properties");
+
+        int longNbAlea = config.getIntPropertiesByName("longNbAlea");
+        int nombreDeTour = config.getIntPropertiesByName("nombreDeTour");
+        int nombreChiffreUtilisables = config.getIntPropertiesByName("nombrePionPossible");
+        int devMode = config.getIntPropertiesByName("devMode");
+
+        PlusOuMoins plusOuMoins = new PlusOuMoins(longNbAlea, nombreDeTour, devMode);
+        Mastermind mastermind = new Mastermind(longNbAlea, nombreDeTour, nombreChiffreUtilisables, devMode);
 
         int choixJeu;
         int choixMode;

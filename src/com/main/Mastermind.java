@@ -7,14 +7,18 @@ public class Mastermind {
     private int longNbAleaConf ; //todo A coder dans le fichier de conf //Longueur de la combinaison
     private int nombreTourConf ; //todo A coder dans le fichier de conf//nombre de tour possible
     private int nombreChiffresUtilisables ; //todo A coder dans le fichier de conf//nombre de chiffres utilisables
+    private int devMode ;
 
-    public Mastermind(int longNbAleaConf, int nombreTourConf, int nombreChiffresUtilisables) {
+    public Mastermind(int longNbAleaConf, int nombreTourConf, int nombreChiffresUtilisables, int devMode) {
         this.longNbAleaConf = longNbAleaConf;
         this.nombreTourConf = nombreTourConf;
         this.nombreChiffresUtilisables = nombreChiffresUtilisables;
+        this.devMode = devMode;
     }
 
     /**
+     *
+     *
      *
      * @param nombrePositionOk
      * @param nombrePositionMauvaise
@@ -23,7 +27,7 @@ public class Mastermind {
      * @param tentativeCombinaison
      * @param sc
      * @param combinaisonSecrete
-     * @return
+     * @return La valeur du nombre de pion en bonne position
      */
     private int mainGameChal(int nombrePositionOk, int nombrePositionMauvaise, int nombreMauvais, String recupSaisieUtilisateur, StringBuilder tentativeCombinaison, Scanner sc, StringBuilder combinaisonSecrete){
 

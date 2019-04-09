@@ -7,10 +7,12 @@ public class PlusOuMoins {
 
     private int longNbAleaConf ; //todo A coder dans le fichier de conf
     private int nombreTourConf ; //todo A coder dans le fichier de conf
+    private int devMode ;
 
-    public PlusOuMoins(int longNbAleaConf, int nombreTourConf) {
+    public PlusOuMoins(int longNbAleaConf, int nombreTourConf, int devMode) {
         this.longNbAleaConf = longNbAleaConf;
         this.nombreTourConf = nombreTourConf;
+        this.devMode = devMode;
     }
 
 
