@@ -57,7 +57,6 @@ public class Tools {
     }
 
     /**
-     *
      * Cette méthode permet d'afficher le tour en cour ainsi que d'aérer un peu la lecture de la console
      *
      * @param numeroTour numéro du tour en cours
@@ -70,7 +69,7 @@ public class Tools {
         System.out.println("**********************************************"+"\n");
 
     }
-
+//todo javadoc
     public static void winLoose (boolean winLoose){
         if (!winLoose)
             System.out.println("L'ordinateur à perdu !");
@@ -79,7 +78,6 @@ public class Tools {
     }
 
     /**
-     *
      * Cette méthode permet un affichage en devMode de la combinaison secrète que le joueur doit trouver.
      *
      * @param combinaisonSecrete la valeur que le joueur doit trouver
@@ -90,6 +88,11 @@ public class Tools {
         System.out.println("--------------------------------------------------"+"\n");
     }
 
+    /**
+     * Cette méthode permet d'afficher le gagant en fonction d'un int
+     *
+     * @param numeroGagnant numéro du gagant
+     */
     public static void gagnant(int numeroGagnant){
         switch (numeroGagnant) {
             case 1:

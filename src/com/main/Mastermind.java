@@ -9,6 +9,13 @@ public class Mastermind {
     private int nombreChiffresUtilisables ; //Dans le fichier de conf
     private int devMode ; //Dans le fichier de conf
 
+    /**
+     * Constructeur du jeux Mastermind
+     * @param longNbAleaConf longeur du nombre à trouver, passer dans config.properties
+     * @param nombreTourConf nombre de tour possible, passer dans config.properties
+     * @param nombreChiffresUtilisables nombre de pion utilisable, de 4 à 9, passer dans config.properties
+     * @param devMode Mode developpeur activé ou non, passer dans config.properties
+     */
     public Mastermind(int longNbAleaConf, int nombreTourConf, int nombreChiffresUtilisables, int devMode) {
         this.longNbAleaConf = longNbAleaConf;
         this.nombreTourConf = nombreTourConf;
@@ -17,23 +24,19 @@ public class Mastermind {
     }
 
     /**
-     *
-     *
-     *
-     * @param nombrePositionOk
-     * @param nombrePositionMauvaise
-     * @param nombreMauvais
-     * @param recupSaisieUtilisateur
-     * @param tentativeCombinaison
-     * @param sc
-     * @param combinaisonSecrete
+     * Cette méthode permet de comparer la réponse de l'utilisateur à la combinaison de l'ordinateur
+     * @param tentativeCombinaison la tentative saisie par l'utilisateur
+     * @param combinaisonSecrete la combinaison généré par l'ordinateur que l'utilisateur doit trouver
      * @return La valeur du nombre de pion en bonne position
      */
-    private int mainGameChal(int nombrePositionOk, int nombrePositionMauvaise, int nombreMauvais, String recupSaisieUtilisateur, StringBuilder tentativeCombinaison, Scanner sc, StringBuilder combinaisonSecrete){
+    private int mainGameChal(StringBuilder tentativeCombinaison, StringBuilder combinaisonSecrete){
 
-        nombrePositionOk = 0;
-        nombrePositionMauvaise = 0;
-        nombreMauvais = 0;
+        int nombrePositionOk = 0;
+        int nombrePositionMauvaise = 0;
+        int nombreMauvais = 0;
+        Scanner sc = new Scanner(System.in);
+
+        String recupSaisieUtilisateur;
 
         //Demande au joueur de saisir sa tentative pour trouver la combinaison secrète
 
@@ -75,37 +78,31 @@ public class Mastermind {
 
     }
 
+    /**
+     * Méthode du jeux Mastermind dans son mode Challenger, l'utilisateur doit trouver la solution de l'ordinateur
+     */
     public void mastermindChallenger() {
 
         boolean replay = true;
-
         while (replay == true) {
-
             replay = false;
 
             int numeroTour = 0;//Compteur de nombre de tour
-            int nombrePositionOk = 0;
-            int nombrePositionMauvaise = 0;
-            int nombreMauvais = 0;
-
-            String recupSaisieUtilisateur = new String();
+            int nombrePositionOk ;
 
             StringBuilder tentativeCombinaison = new StringBuilder();
-            StringBuilder combinaisonSecrete = new StringBuilder();//Combinaison secrète généré par l'ordinateur
-
-            Scanner sc = new Scanner(System.in);
+            StringBuilder combinaisonSecrete;
 
             //L'ordinateur doit générer la solution
-            combinaisonSecrete = Tools.geneNbAlea(longNbAleaConf, 1, nombreChiffresUtilisables);
+            combinaisonSecrete = Tools.geneNbAlea(longNbAleaConf, 0, nombreChiffresUtilisables);
 
             if (devMode == 1)
                 Tools.devMode(combinaisonSecrete);
 
             do {
-
                 numeroTour++;
                 Tools.affichageTour(numeroTour, nombreTourConf);
-                nombrePositionOk = mainGameChal(nombrePositionOk, nombrePositionMauvaise, nombreMauvais, recupSaisieUtilisateur, tentativeCombinaison, sc, combinaisonSecrete);
+                nombrePositionOk = mainGameChal(tentativeCombinaison, combinaisonSecrete);
 
             } while (nombrePositionOk != longNbAleaConf && numeroTour < nombreTourConf);
 
@@ -117,6 +114,12 @@ public class Mastermind {
         }
     }
 
+    /**
+     * Cette méthode permet de générer une nouvelle combinaison en fonction de la combinaison secrète décidé par l'utilisateur
+     * @param tentativeCombinaison la tentative généré par l'ordinateur
+     * @param combinaisonSecrete la combinaison secrète décidé par l'utilisateur
+     * @return la nouvelle tentative généré par l'ordinateur
+     */
     private StringBuilder mainGameDef(StringBuilder tentativeCombinaison, StringBuilder combinaisonSecrete) {
 
         for (int i = 0; i < longNbAleaConf; i++) {
@@ -129,6 +132,9 @@ public class Mastermind {
         return tentativeCombinaison;
     }
 
+    /**
+     * Méthode du jeux Mastermind dans son mode défensseur, l'ordinateur doit trouver la combinaison décidé par l'utilisateur
+     */
     public void mastermindDefenseur() {
 
         boolean replay = true ;
@@ -174,6 +180,9 @@ public class Mastermind {
     }
     }
 
+    /**
+     * Méthode du jeux Mastermind dans son mode duel, utilisateur vs ordinateur, chacun doit trouver la combinaison de l'autre
+     */
     public void mastermindDuel() {
 
         boolean replay = true;
@@ -194,9 +203,7 @@ public class Mastermind {
             //Variable pour le joueur
             StringBuilder tentativeCombinaisonJoueur = new StringBuilder();
             StringBuilder combinaisonSecreteJoueur = new StringBuilder();
-            int nombrePositionOk = 0;
-            int nombrePositionMauvaise = 0;
-            int nombreMauvais = 0;
+            int nombrePositionOk;
 
             System.out.println("L'ordinateur commence !");
 
@@ -222,7 +229,7 @@ public class Mastermind {
                 } else {
                     System.out.println("A votre tour, à vous de trouver le nombre de l'ordinateur");
                     System.out.println("mode dev: " + combinaisonSecreteJoueur);
-                    nombrePositionOk = mainGameChal(nombrePositionOk, nombrePositionMauvaise, nombreMauvais, recupSaisieUtilisateur, tentativeCombinaisonJoueur, sc, combinaisonSecreteJoueur);
+                    nombrePositionOk = mainGameChal(tentativeCombinaisonJoueur, combinaisonSecreteJoueur);
                     if (nombrePositionOk == longNbAleaConf)
                     {
                         gagnant = 2;

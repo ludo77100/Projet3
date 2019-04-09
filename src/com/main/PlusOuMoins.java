@@ -1,6 +1,5 @@
 package com.main;
 
-import javax.tools.Tool;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -10,6 +9,12 @@ public class PlusOuMoins {
     private int nombreTourConf ; //Dans le fichier de conf
     private int devMode ; //Dans le fichier de conf
 
+    /**
+     * Constructeur du jeux Plus ou Moins
+     * @param longNbAleaConf longeur du nombre à trouver, passer dans config.properties
+     * @param nombreTourConf nombre de tour possible, passer dans config.properties
+     * @param devMode Mode developpeur activé ou non, passer dans config.properties
+     */
     public PlusOuMoins(int longNbAleaConf, int nombreTourConf, int devMode) {
         this.longNbAleaConf = longNbAleaConf;
         this.nombreTourConf = nombreTourConf;
@@ -46,6 +51,9 @@ public class PlusOuMoins {
         System.out.println("Votre proposition est : " + choix + " -> Réponse : " + reponse);
     }
 
+     /**
+     * Méthode du jeux Plus ou Moins dans son mode Challenger, l'utilisateur doit trouver la solution de l'ordinateur
+     */
     public void plusOuMoinsChallenger() {
 
         boolean replay = true;
@@ -127,6 +135,9 @@ public class PlusOuMoins {
         }
     }
 
+    /**
+     * Méthode du jeux Plus ou Moins dans son mode défenseur, l'ordinateur doit trouver la solution de l'utilisateur
+     */
     public void plusOuMoinsDefenseur() {
 
         boolean replay = true;
@@ -169,6 +180,9 @@ public class PlusOuMoins {
         }
     }
 
+    /**
+     * Méthode du jeux Plus ou Moins dans son mode duel, utilisateur vs ordinateur, chacun doit trouver la solution de l'autre
+     */
     public void plusOuMoinsDuel() {
 
         boolean replay = true;
