@@ -1,13 +1,14 @@
 package com.main;
 
+import javax.tools.Tool;
 import java.util.Random;
 import java.util.Scanner;
 
 public class PlusOuMoins {
 
-    private int longNbAleaConf ; //todo A coder dans le fichier de conf
-    private int nombreTourConf ; //todo A coder dans le fichier de conf
-    private int devMode ;
+    private int longNbAleaConf ; //Dans le fichier de conf
+    private int nombreTourConf ; //Dans le fichier de conf
+    private int devMode ; //Dans le fichier de conf
 
     public PlusOuMoins(int longNbAleaConf, int nombreTourConf, int devMode) {
         this.longNbAleaConf = longNbAleaConf;
@@ -91,11 +92,12 @@ public class PlusOuMoins {
     }
 
     /**
+     *Cette méthode permet de généré un nouveau nombre aléatoire en fonction de la réponse en signe donné par l'utilisateur
      *
-     * @param longNbAleaConf
-     * @param reponseEnSigne
-     * @param reponseOrdi
-     * @param r 
+     * @param longNbAleaConf passé dans le fichier de conf, longueur du nombre à trouver
+     * @param reponseEnSigne réponse avec les signes +,- ou = rentré par l'utilisateur
+     * @param reponseOrdi la réponse précédement généré par l'ordinateur, le passer en paramètre permet de générer un nombre aléatoire compris dans les bonnes bornes
+     * @param r Méthode Random
      */
     private void mainGameDef(int longNbAleaConf, String reponseEnSigne, StringBuilder reponseOrdi, Random r){
         for(int i = 0; i < longNbAleaConf; i++) {
@@ -172,6 +174,7 @@ public class PlusOuMoins {
         boolean replay = true;
 
         while (replay == true) {
+
             replay = false ;
 
             Random r = new Random();
@@ -187,14 +190,15 @@ public class PlusOuMoins {
 
             int gagnant;
             int numeroTour = 0;
+
             boolean winLoose;
 
             Scanner sc = new Scanner(System.in);
 
-            reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9);
-            nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9);
+            reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9); //L'ordinateur génère sa première réponse
+            nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre que l'utilisateur doit trouver
 
-            if (devMode == 1)
+            if (devMode == 1) //Condition permettant l'affichage de la solution que l'utilisateur doit trouver en dev mode
                 Tools.devMode(nbAlea);
 
             System.out.println("L'odinateur commence !");
@@ -204,46 +208,41 @@ public class PlusOuMoins {
             codeSecretUtilisateur = sc.next();
 
             do {
+                //On incrémente le numéro du tour + display du tour en cours
                 numeroTour++;
                 Tools.affichageTour(numeroTour, nombreTourConf);
+
+                //L'ordinateur affiche sa première tentative, pour chaque chiffre l'utilisateur indique +, = ou -
                 System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
                 System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
                 saisieUtilisateur = sc.next();
                 System.out.println("Vous avez saisi: " + saisieUtilisateur);
-                mainGameDef(longNbAleaConf, saisieUtilisateur, reponseOrdi, r);
-                reponseEnSigne.delete(0, reponseEnSigne.length());
-                reponseEnSigne.append(saisieUtilisateur);
-                winLoose = Tools.combinaisonValide(reponseEnSigne, longNbAleaConf);
+
+                mainGameDef(longNbAleaConf, saisieUtilisateur, reponseOrdi, r); //On génère une nouvelle réponse en fonction de la réponse de l'utilisateur
+                reponseEnSigne.delete(0, reponseEnSigne.length()); //On supprime la réponse de l'utilisateur pour la prochaine tentative afin de ne pas mettre bout à bout ses réponses
+
+                reponseEnSigne.append(saisieUtilisateur); //On passe en Stringbuilder afin de pouvoir utliser la méthode CombinaisonValide dans Tools
+                winLoose = Tools.combinaisonValide(reponseEnSigne, longNbAleaConf); //On regarde si l'ordinateur à gagné
                 if (winLoose) {
                     gagnant = 1;
                     break;
                 } else {
 
                     System.out.println("A votre tour, à vous de trouver le nombre de l'ordinateur");
-                    System.out.println(nbAlea);
-
                     reponse.delete(0, longNbAleaConf);//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
 
-                    //Demande de première saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
+                    //Demande de saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
                     do {
                         System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
                         choix = sc.next();
                     } while (choix.length() != longNbAleaConf);
 
-                    mainGameChal(longNbAleaConf, choix, nbAlea, reponse);
-                    winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);
+                    mainGameChal(longNbAleaConf, choix, nbAlea, reponse); //On génère la réponse de l'ordinateur en signe.
+                    winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);//On regarde si l'utilisateur à gagné
                     gagnant = 2;
                 }
             }while (!winLoose);
-
-            switch (gagnant) {
-                case 1:
-                    System.out.println("L'ordinateur a gagné !");
-                    break;
-                case 2:
-                    System.out.println("Vous avez gagné !");
-                    break;
-            }
+            Tools.gagnant(gagnant);
             replay = Menu.finDePArtie();
         }
     }

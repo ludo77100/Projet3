@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class Mastermind {
 
-    private int longNbAleaConf ; //todo A coder dans le fichier de conf //Longueur de la combinaison
-    private int nombreTourConf ; //todo A coder dans le fichier de conf//nombre de tour possible
-    private int nombreChiffresUtilisables ; //todo A coder dans le fichier de conf//nombre de chiffres utilisables
-    private int devMode ;
+    private int longNbAleaConf ; //Dans le fichier de conf
+    private int nombreTourConf ; //Dans le fichier de conf
+    private int nombreChiffresUtilisables ; //Dans le fichier de conf
+    private int devMode ; //Dans le fichier de conf
 
     public Mastermind(int longNbAleaConf, int nombreTourConf, int nombreChiffresUtilisables, int devMode) {
         this.longNbAleaConf = longNbAleaConf;
@@ -230,15 +230,7 @@ public class Mastermind {
                     }
                 }
             } while (numeroTour < nombreTourConf);
-
-            switch (gagnant) {
-                case 1:
-                    System.out.println("L'ordinateur a gagné !");
-                    break;
-                case 2:
-                    System.out.println("Vous avez gagné !");
-                    break;
-            }
+            Tools.gagnant(gagnant);
             replay = Menu.finDePArtie();
         }
     }

@@ -89,4 +89,15 @@ public class Tools {
         System.out.println("La combinaison secrète est : "+combinaisonSecrete);
         System.out.println("--------------------------------------------------"+"\n");
     }
+
+    public static void gagnant(int numeroGagnant){
+        switch (numeroGagnant) {
+            case 1:
+                System.out.println("L'ordinateur a gagné !");
+                break;
+            case 2:
+                System.out.println("Vous avez gagné !");
+                break;
+        }
+    }
 }
