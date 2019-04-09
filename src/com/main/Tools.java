@@ -77,4 +77,16 @@ public class Tools {
         else
             System.out.println("L'ordinateur a gagné !");
     }
+
+    /**
+     *
+     * Cette méthode permet un affichage en devMode de la combinaison secrète que le joueur doit trouver.
+     *
+     * @param combinaisonSecrete la valeur que le joueur doit trouver
+     */
+    public static void devMode(StringBuilder combinaisonSecrete){
+        System.out.println("\n"+"----------------DEV MODE ACTIF------------------");
+        System.out.println("La combinaison secrète est : "+combinaisonSecrete);
+        System.out.println("--------------------------------------------------"+"\n");
+    }
 }

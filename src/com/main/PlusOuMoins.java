@@ -63,7 +63,8 @@ public class PlusOuMoins {
 
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
 
-            System.out.println(nbAlea);
+            if (devMode == 1)
+                Tools.devMode(nbAlea);
 
             do {
                 reponse.delete(0, reponse.length());//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
@@ -193,6 +194,8 @@ public class PlusOuMoins {
             reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9);
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9);
 
+            if (devMode == 1)
+                Tools.devMode(nbAlea);
 
             System.out.println("L'odinateur commence !");
 
