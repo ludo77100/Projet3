@@ -108,7 +108,6 @@ public class Tools {
 
     public static String saisieNuméros(int longNbAleaConf){
 
-
         String choix = new String();
         Scanner sc = new Scanner(System.in);
             try {
@@ -124,7 +123,6 @@ public class Tools {
     }
 
     public static String saisieSignes(int longNbAleaConf) {
-
 
             String saisie;
             Scanner sc = new Scanner(System.in);

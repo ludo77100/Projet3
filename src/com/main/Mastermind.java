@@ -34,7 +34,6 @@ public class Mastermind {
         int nombrePositionOk = 0;
         int nombrePositionMauvaise = 0;
         int nombreMauvais = 0;
-        Scanner sc = new Scanner(System.in);
 
         String recupSaisieUtilisateur;
 
@@ -42,7 +41,7 @@ public class Mastermind {
 
 
         System.out.println("Veuillez saisir une combinaison (Chiffre de 1 à " + nombreChiffresUtilisables + ")");
-        recupSaisieUtilisateur = sc.next();
+        recupSaisieUtilisateur = Tools.saisieNuméros(longNbAleaConf);
         tentativeCombinaison.append(recupSaisieUtilisateur);
 
         //Comparer la réponse de l'utilisateur à la solutions
@@ -150,12 +149,9 @@ public class Mastermind {
         StringBuilder tentativeCombinaison = new StringBuilder();
         StringBuilder combinaisonSecrete = new StringBuilder();
 
-        Scanner sc = new Scanner(System.in);
-
         //L'utilisateur décide de la combinaison secrète
-
         System.out.println("Veuillez saisir la combinaison secrète que l'ordinateur doit deviner");
-        recupSaisieUtilisateur = sc.next();
+        recupSaisieUtilisateur = Tools.saisieNuméros(longNbAleaConf);
         combinaisonSecrete.append(recupSaisieUtilisateur);
 
         //L'ordinateur génère sa première réponse
@@ -215,7 +211,7 @@ public class Mastermind {
                 Tools.devMode(combinaisonSecreteJoueur);
 
             System.out.println("Veuillez saisir la combinaison secrète que l'ordinateur doit deviner:");
-            recupSaisieUtilisateur = sc.next();
+            recupSaisieUtilisateur = Tools.saisieNuméros(longNbAleaConf);
             combinaisonSecreteOrdi.append(recupSaisieUtilisateur);
 
             do {
