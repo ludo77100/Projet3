@@ -79,6 +79,7 @@ public class PlusOuMoins {
 
                     numeroTour++;
                     Tools.affichageTour(numeroTour, nombreTourConf);
+
                     System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
                     choix = Tools.saisieNuméros(longNbAleaConf);
 
