@@ -66,8 +66,6 @@ public class PlusOuMoins {
 
             int numeroTour = 0;
 
-            Scanner sc = new Scanner(System.in);
-
             boolean winLoose;
 
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
@@ -78,16 +76,14 @@ public class PlusOuMoins {
             do {
                 reponse.delete(0, reponse.length());//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
                 //Demande de première saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
-                do {
+
                     numeroTour++;
                     Tools.affichageTour(numeroTour, nombreTourConf);
                     System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
-                    choix = sc.next();
-                } while (choix.length() != longNbAleaConf);
+                    choix = Tools.saisieNuméros(longNbAleaConf);
 
                 mainGameChal(longNbAleaConf, choix, nbAlea, reponse);
                 winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);
-
 
             } while (!winLoose && numeroTour < nombreTourConf);
 
@@ -152,9 +148,8 @@ public class PlusOuMoins {
             boolean winLoose;
 
             //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
-            System.out.println("Veuillez saisir un nombre ! (" + longNbAleaConf + ")");
-            Scanner sc = new Scanner(System.in);
-            codeSecretUtilisateur = sc.next();
+            System.out.println("L'ordinateur doit deviner votre combinaison !");
+            codeSecretUtilisateur = Tools.saisieNuméros(longNbAleaConf);
 
             reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9);
 
@@ -167,7 +162,7 @@ public class PlusOuMoins {
                 //On récupère ici la réponse de l'utilisateur
                 System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
                 System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
-                saisieUtilisateur = sc.next();
+                saisieUtilisateur = Tools.saisieSignes(longNbAleaConf);
                 System.out.println("Vous avez saisi: " + saisieUtilisateur);
 
                 reponseEnSigne.append(saisieUtilisateur); //On passe en StringBuilder afin de pouvoir utiliser la méthode combinaisonValide dans Tools
@@ -207,8 +202,6 @@ public class PlusOuMoins {
 
             boolean winLoose;
 
-            Scanner sc = new Scanner(System.in);
-
             reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9); //L'ordinateur génère sa première réponse
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre que l'utilisateur doit trouver
 
@@ -219,7 +212,7 @@ public class PlusOuMoins {
 
             //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
             System.out.println("Veuillez saisir le nombre que l'ordinateur doit deviner ! (" + longNbAleaConf + " chiffres)");
-            codeSecretUtilisateur = sc.next();
+            codeSecretUtilisateur = Tools.saisieNuméros(longNbAleaConf);
 
             do {
                 //On incrémente le numéro du tour + display du tour en cours
@@ -229,7 +222,7 @@ public class PlusOuMoins {
                 //L'ordinateur affiche sa première tentative, pour chaque chiffre l'utilisateur indique +, = ou -
                 System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
                 System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
-                saisieUtilisateur = sc.next();
+                saisieUtilisateur = Tools.saisieSignes(longNbAleaConf);
                 System.out.println("Vous avez saisi: " + saisieUtilisateur);
 
                 mainGameDef(longNbAleaConf, saisieUtilisateur, reponseOrdi, r); //On génère une nouvelle réponse en fonction de la réponse de l'utilisateur
@@ -248,7 +241,7 @@ public class PlusOuMoins {
                     //Demande de saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
                     do {
                         System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
-                        choix = sc.next();
+                        choix = Tools.saisieNuméros(longNbAleaConf);
                     } while (choix.length() != longNbAleaConf);
 
                     mainGameChal(longNbAleaConf, choix, nbAlea, reponse); //On génère la réponse de l'ordinateur en signe.

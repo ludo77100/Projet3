@@ -1,6 +1,8 @@
 package com.main;
 
+import java.util.InputMismatchException;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Tools {
 
@@ -103,4 +105,35 @@ public class Tools {
                 break;
         }
     }
-}
+
+    public static String saisieNuméros(int longNbAleaConf){
+
+
+        String choix = new String();
+        Scanner sc = new Scanner(System.in);
+            try {
+                do {
+                    System.out.println("Veuillez saisir un nombre ! (" + longNbAleaConf + ")");
+                    choix = sc.next();
+                }while (choix.length() != longNbAleaConf);
+            }catch (InputMismatchException e) {
+                System.out.println("Merci de saisir des chiffres("+e+")");
+                saisieNuméros(longNbAleaConf);
+            }
+            return choix ;
+    }
+
+    public static String saisieSignes(int longNbAleaConf) {
+
+
+            String saisie;
+            Scanner sc = new Scanner(System.in);
+            do {
+                saisie = sc.next();
+            }while (saisie.length() != longNbAleaConf);
+            for (int i = 0; i < longNbAleaConf; i++)
+                if (saisie.charAt(i) != '+' && saisie.charAt(i) != '-' && saisie.charAt(i) != '=')
+                    saisieSignes(longNbAleaConf);
+            return saisie;
+        }
+    }
