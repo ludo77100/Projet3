@@ -84,6 +84,7 @@ public class Menu {
                 gameChoice();
                 break;
             case 3:
+                System.out.println("Merci d'avoir joué, à bientot !");
                 break;
         }
         return false ;
