@@ -1,8 +1,14 @@
 package com.enedis.ludovic;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Messages {
 
+    public static final Logger logger = LogManager.getLogger();
+
     public static void bienvenue(){
+        logger.info("Affichage message bienvenue ASCII");
         System.out.println(" ____  _                                     ");
         System.out.println("| __ )(_) ___ _ ____   _____ _ __  _   _  ___ ");
         System.out.println("|  _ \\| |/ _ \\ '_ \\ \\ / / _ \\ '_ \\| | | |/ _ \\");
@@ -11,6 +17,7 @@ public class Messages {
     }
 
     public static void plusOuMoins(){
+        logger.info("Affichage message Plus ou Moins ASCII");
         System.out.println(" ____  _                           __  __       _           ");
         System.out.println("|  _ \\| |_   _ ___    ___  _   _  |  \\/  | ___ (_)_ __  ___ ");
         System.out.println("| |_) | | | | / __|  / _ \\| | | | | |\\/| |/ _ \\| | '_ \\/ __|");
@@ -19,6 +26,7 @@ public class Messages {
     }
 
     public static void mastermind(){
+        logger.info("Affichage message Mastermind ASCII");
         System.out.println(" __  __           _                      _           _ ");
         System.out.println("|  \\/  | __ _ ___| |_ ___ _ __ _ __ ___ (_)_ __   __| |");
         System.out.println("| |\\/| |/ _` / __| __/ _ \\ '__| '_ ` _ \\| | '_ \\ / _` |");
