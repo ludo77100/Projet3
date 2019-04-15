@@ -143,17 +143,25 @@ public class Tools {
         logger.debug("FIN de la méthode");
     }
 
-    //todo javadoc
+    /**
+     * Cette méthode permet de récuper la saisie de l'utilisateur, elle récupère un int qui ensuite retourner en String
+     *
+     * @param longNbAleaConf longueur du nombre aléatoire
+     * @return la saisie de l'utilisateur de longueur longNbAleaConf en String
+     */
     public static String saisieNuméros(int longNbAleaConf) {
 
         logger.debug("APPEL de la méthode saisieNumero avec en paramètre longNbAleaConf: " + longNbAleaConf);
 
         String choix = new String();
+        Integer saisieUtilisateur ;
+
         Scanner sc = new Scanner(System.in);
         try {
             do {
                 System.out.println("Veuillez saisir un nombre ! (" + longNbAleaConf + ")");
-                choix = sc.next();
+                saisieUtilisateur = sc.nextInt();
+                choix = saisieUtilisateur.toString();
             } while (choix.length() != longNbAleaConf);
         } catch (InputMismatchException e) {
             System.out.println("Merci de saisir des chiffres(" + e + ")");
@@ -163,7 +171,13 @@ public class Tools {
         return choix;
     }
 
-    //todo javadoc
+    /**
+     * Cette méthode permet de récuperer la saisie de l'utilisateur, elle ne récupère que les signes =, - ou + et les retourne en String
+     * Elle vérifie également que la saisie est de la bonne longueur
+     *
+     * @param longNbAleaConf longueur du nombre aléatoire
+     * @return la saisie de l'utilisateur de longueur longNbAleaConf en String
+     */
     public static String saisieSignes(int longNbAleaConf) {
 
         logger.debug("APPEL de la méthode saisieSignes avec en paramètre longNbAleaConf: "+longNbAleaConf);

@@ -9,6 +9,9 @@ public class Menu {
 
     private static final Logger logger = LogManager.getLogger();
 
+    /**
+     * Cette méthode est utilisé afin d'afficher les menus de selection, pour le choix du jeu ainsi que du mode
+     */
     public static void gameChoice() {
 
         logger.debug("Instanciation de l'objet Config");
@@ -98,6 +101,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Cette méthode affiche le menu de fin de partie
+     * @return retourne le boolean qui permet de refaire une nouvelle partie
+     */
     public static boolean finDePArtie() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Que souhaitez vous faire ? 1: Rejouer -- 2: Choisir un autre jeu --3: Quitter");

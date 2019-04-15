@@ -1,8 +1,13 @@
 package com.enedis.ludovic;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Random;
 
 public class PlusOuMoins {
+
+    private static final Logger logger = LogManager.getLogger();
 
     private int longNbAleaConf ; //Dans le fichier de conf
     private int nombreTourConf ; //Dans le fichier de conf
