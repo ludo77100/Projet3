@@ -7,6 +7,8 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
+import static java.lang.Character.isDigit;
+
 public class Tools {
 
     private static final Logger logger = LogManager.getLogger();
@@ -64,9 +66,10 @@ public class Tools {
         logger.debug("APPEL de la méthode combinaisonValide avec paramètres reponse: " + reponse + " ;longNbAlea: " + longNbAlea);
 
         for (int i = 0; i < longNbAlea; i++) {
-            if (reponse.charAt(i) != '=')
+            if (reponse.charAt(i) != '=') {
                 logger.debug("FIN de la méthode, elle retourne false");
-            return false;
+                return false;
+            }
         }
         logger.debug("FIN de la méthode, elle retourne true");
         return true;
@@ -155,21 +158,37 @@ public class Tools {
 
         String choix = new String();
         Integer saisieUtilisateur ;
-
         Scanner sc = new Scanner(System.in);
+        StringBuilder firstCharZero = new StringBuilder();
+        boolean bonneSaisie ;
+        do{
         try {
             do {
                 System.out.println("Veuillez saisir un nombre ! (" + longNbAleaConf + ")");
                 saisieUtilisateur = sc.nextInt();
                 choix = saisieUtilisateur.toString();
-            } while (choix.length() != longNbAleaConf);
+
+                if (choix.length() <= longNbAleaConf - 1){
+                    firstCharZero.delete(0, longNbAleaConf);
+                    for (int i = 0; i < longNbAleaConf - choix.length(); i++)
+                        firstCharZero.insert(i, 0);
+                    firstCharZero.append(choix);
+                    choix = firstCharZero.toString();
+                    System.out.println(firstCharZero);
+                }
+
+                bonneSaisie = true ;
+            } while (choix.length() != longNbAleaConf && firstCharZero.length() != longNbAleaConf);
         } catch (InputMismatchException e) {
+            sc.next();
             System.out.println("Merci de saisir des chiffres(" + e + ")");
-            saisieNuméros(longNbAleaConf);
+            bonneSaisie = false;
         }
+        }while (!bonneSaisie);
         logger.debug("FIN de la méthode, elle retourne choix: " + choix);
         return choix;
     }
+
 
     /**
      * Cette méthode permet de récuperer la saisie de l'utilisateur, elle ne récupère que les signes =, - ou + et les retourne en String

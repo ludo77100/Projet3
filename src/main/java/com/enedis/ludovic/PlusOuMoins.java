@@ -5,9 +5,12 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+import static java.lang.Character.isDigit;
+
 public class PlusOuMoins {
 
     private static final Logger logger = LogManager.getLogger();
+    //Menu menu = new Menu();
 
     private int longNbAleaConf ; //Dans le fichier de conf
     private int nombreTourConf ; //Dans le fichier de conf
@@ -32,10 +35,13 @@ public class PlusOuMoins {
      * @param longNbAleaConf passé dans le fichier conf, longueur du nombre à trouvé
      * @param choix c'est la réponse rentré par l'utilisateur
      * @param nbAlea ce nombre est généré aléatoirement (dans Tools méthode geneNbAlea)
-     * @param reponse réponse généré par l'ordinateur (avec les signes =+-)
+     * @return reponse réponse généré par l'ordinateur (avec les signes =+-)
      *
      */
-    private void mainGameChal(int longNbAleaConf, String choix, StringBuilder nbAlea, StringBuilder reponse){
+    private StringBuilder mainGameChal(int longNbAleaConf, String choix, StringBuilder nbAlea){
+
+        StringBuilder reponse = new StringBuilder();
+        reponse.delete(0, reponse.length());//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
 
         for (int i = 0; i < longNbAleaConf; i++) {
             int y = Character.getNumericValue(nbAlea.charAt(i));
@@ -53,6 +59,7 @@ public class PlusOuMoins {
 
         //display un message pour la réponse
         System.out.println("Votre proposition est : " + choix + " -> Réponse : " + reponse);
+        return reponse;
     }
 
      /**
@@ -64,13 +71,13 @@ public class PlusOuMoins {
         while (replay == true) { //Boucle utilisé afin de pouvoir rejouer en fin de partie
             replay = false ;
 
-            String choix; //Saisie de l'utlisateur
+            String choix = new String(); //Saisie de l'utlisateur
             StringBuilder reponse = new StringBuilder();
             StringBuilder nbAlea = new StringBuilder();
 
             int numeroTour = 0;
 
-            boolean winLoose;
+            boolean winLoose = false;
 
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
 
@@ -78,16 +85,16 @@ public class PlusOuMoins {
                 Tools.devMode(nbAlea);
 
             do {
-                reponse.delete(0, reponse.length());//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
+
                 //Demande de première saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
 
                     numeroTour++;
                     Tools.affichageTour(numeroTour, nombreTourConf);
 
-                    System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
+
                     choix = Tools.saisieNuméros(longNbAleaConf);
 
-                mainGameChal(longNbAleaConf, choix, nbAlea, reponse);
+                reponse = mainGameChal(longNbAleaConf, choix, nbAlea);
                 winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);
 
             } while (!winLoose && numeroTour < nombreTourConf);
@@ -249,7 +256,7 @@ public class PlusOuMoins {
                         choix = Tools.saisieNuméros(longNbAleaConf);
                     } while (choix.length() != longNbAleaConf);
 
-                    mainGameChal(longNbAleaConf, choix, nbAlea, reponse); //On génère la réponse de l'ordinateur en signe.
+                    mainGameChal(longNbAleaConf, choix, nbAlea); //On génère la réponse de l'ordinateur en signe.
                     winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);//On regarde si l'utilisateur à gagné
                     gagnant = 2;
                 }

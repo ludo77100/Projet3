@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Mastermind {
 
+    //Menu menu = new Menu();
+
     private int longNbAleaConf; //Dans le fichier de conf
     private int nombreTourConf; //Dans le fichier de conf
     private int nombreChiffresUtilisables; //Dans le fichier de conf
