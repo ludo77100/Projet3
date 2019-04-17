@@ -14,7 +14,7 @@ public class Main {
 
         logger.info("Execution de l'application");
         Messages.bienvenue();
-        Menu.gameChoice();
+        menu.gameChoice();
         logger.info("Fermeture de l'application");
     }
 }

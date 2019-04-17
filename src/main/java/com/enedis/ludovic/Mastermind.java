@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Mastermind {
 
-    //Menu menu = new Menu();
+    Menu menu = new Menu();
 
     private int longNbAleaConf; //Dans le fichier de conf
     private int nombreTourConf; //Dans le fichier de conf
@@ -22,7 +22,7 @@ public class Mastermind {
     public Mastermind(int longNbAleaConf, int nombreTourConf, int nombreChiffresUtilisables, int devMode) {
         this.longNbAleaConf = longNbAleaConf;
         this.nombreTourConf = nombreTourConf;
-        this.nombreChiffresUtilisables = nombreChiffresUtilisables;
+        this.nombreChiffresUtilisables = nombreChiffresUtilisables - 1;
         this.devMode = devMode;
     }
 
@@ -44,8 +44,8 @@ public class Mastermind {
         //Demande au joueur de saisir sa tentative pour trouver la combinaison secrète
 
 
-        System.out.println("Veuillez saisir une combinaison (Chiffre de 1 à " + nombreChiffresUtilisables + ")");
-        recupSaisieUtilisateur = Tools.saisieNuméros(longNbAleaConf);
+        System.out.println("Veuillez saisir une combinaison (Chiffre de 0 à " + nombreChiffresUtilisables + ")");
+        recupSaisieUtilisateur = Tools.saisieNumeroMastermind(longNbAleaConf, 0, nombreChiffresUtilisables);
         tentativeCombinaison.append(recupSaisieUtilisateur);
 
         //Comparer la réponse de l'utilisateur à la solutions
@@ -113,7 +113,7 @@ public class Mastermind {
                 System.out.println("Bravo, vous avez gagné");
             else
                 System.out.println("Vous avez perdu !");
-            replay = Menu.finDePArtie();
+            replay = menu.finDePArtie();
         }
     }
 
@@ -156,7 +156,7 @@ public class Mastermind {
 
             //L'utilisateur décide de la combinaison secrète
             System.out.println("Veuillez saisir la combinaison secrète que l'ordinateur doit deviner");
-            recupSaisieUtilisateur = Tools.saisieNuméros(longNbAleaConf);
+            recupSaisieUtilisateur = Tools.saisieNumeroMastermind(longNbAleaConf, 0, nombreChiffresUtilisables);
             combinaisonSecrete.append(recupSaisieUtilisateur);
 
             //L'ordinateur génère sa première réponse
@@ -177,7 +177,7 @@ public class Mastermind {
                 System.out.println("L'ordinateur à perdu !");
             else
                 System.out.println("L'ordinateur à gagné en " + numeroTour + " tours !");
-            replay = Menu.finDePArtie();
+            replay = menu.finDePArtie();
         }
     }
 
@@ -216,7 +216,7 @@ public class Mastermind {
                 Tools.devMode(combinaisonSecreteJoueur);
 
             System.out.println("Veuillez saisir la combinaison secrète que l'ordinateur doit deviner:");
-            recupSaisieUtilisateur = Tools.saisieNuméros(longNbAleaConf);
+            recupSaisieUtilisateur = Tools.saisieNumero(longNbAleaConf);
             combinaisonSecreteOrdi.append(recupSaisieUtilisateur);
 
             do {
@@ -238,7 +238,7 @@ public class Mastermind {
                 }
             } while (numeroTour < nombreTourConf);
             Tools.gagnant(gagnant);
-            replay = Menu.finDePArtie();
+            replay = menu.finDePArtie();
         }
     }
 }

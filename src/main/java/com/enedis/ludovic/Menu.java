@@ -12,9 +12,8 @@ public class Menu {
     /**
      * Cette méthode est utilisé afin d'afficher les menus de selection, pour le choix du jeu ainsi que du mode
      */
-    public static void gameChoice() {
+    public void gameChoice() {
 
-        logger.debug("Instanciation de l'objet Config");
         Config config = new Config("src/main/resources/config.properties");
 
         int longNbAlea = config.getIntPropertiesByName("longNbAlea");
@@ -22,7 +21,6 @@ public class Menu {
         int nombreChiffreUtilisables = config.getIntPropertiesByName("nombrePionPossible");
         int devMode = config.getIntPropertiesByName("devMode");
 
-        logger.debug("Instanciation de l'objet PlusOuMoins et Mastermind");
         PlusOuMoins plusOuMoins = new PlusOuMoins(longNbAlea, nombreDeTour, devMode);
         Mastermind mastermind = new Mastermind(longNbAlea, nombreDeTour, nombreChiffreUtilisables, devMode);
 
@@ -105,7 +103,7 @@ public class Menu {
      * Cette méthode affiche le menu de fin de partie
      * @return retourne le boolean qui permet de refaire une nouvelle partie
      */
-    public static boolean finDePArtie() {
+    public boolean finDePArtie() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Que souhaitez vous faire ? 1: Rejouer -- 2: Choisir un autre jeu --3: Quitter");
         logger.info("Choix de fin de partie");

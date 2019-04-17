@@ -3,7 +3,6 @@ package com.enedis.ludovic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -22,9 +21,6 @@ public class Tools {
      * @return le nombre aléatoire dans un type StringBuilder
      */
     public static StringBuilder geneNbAlea(int longNbAleaConf, int lowBound, int highBound) {
-
-        logger.debug("APPEL de la méthode geneNbAlea avec paramètres longNbAlea: " + longNbAleaConf + " ;lowBound: " + lowBound + " ;highBound: " + highBound);
-
         Random r = new Random();
         StringBuilder nbAlea = new StringBuilder();
 
@@ -32,9 +28,6 @@ public class Tools {
             int geneNbAlea = lowBound + r.nextInt(highBound - lowBound);
             nbAlea.insert(i, geneNbAlea);
         }
-
-        logger.debug("FIN de la méthode, elle retourne nbAlea: " + nbAlea);
-
         return nbAlea;
     }
 
@@ -62,16 +55,13 @@ public class Tools {
      * @return false: Mauvaise combianaison, true: Bonne combinaison
      */
     public static boolean combinaisonValide(StringBuilder reponse, int longNbAlea) {
-
-        logger.debug("APPEL de la méthode combinaisonValide avec paramètres reponse: " + reponse + " ;longNbAlea: " + longNbAlea);
-
         for (int i = 0; i < longNbAlea; i++) {
             if (reponse.charAt(i) != '=') {
-                logger.debug("FIN de la méthode, elle retourne false");
+                logger.info("La réponse n'est pas la bonne");
                 return false;
             }
         }
-        logger.debug("FIN de la méthode, elle retourne true");
+        logger.info("La réponse du joueur est la bonne");
         return true;
     }
 
@@ -83,29 +73,22 @@ public class Tools {
      */
     public static void affichageTour(int numeroTour, int nombreDeTourConf) {
 
-        logger.debug("APPEL de la méthode affichageTour avec paramètres numeroTour: " + numeroTour + " ;nombreDeTourConf:" + nombreDeTourConf);
-
         int nbTourRestant = nombreDeTourConf - numeroTour;
+
         System.out.println("\n" + "**********************************************");
         System.out.println("Tour n°" + numeroTour + "(nombre de tour restant: " + nbTourRestant + ")");
         System.out.println("**********************************************" + "\n");
-
-        logger.debug("FIN de la méthode");
-
     }
 
     //todo javadoc
     public static void winLoose(boolean winLoose) {
-
-        logger.debug("APPEL de la méthode winLoose avec paramètre winLoose" + winLoose);
-
-        if (!winLoose)
+        if (!winLoose) {
             System.out.println("L'ordinateur à perdu !");
-        else
+            logger.info("Le joueur a gagné, l'ordinateur a perdu");
+        } else {
             System.out.println("L'ordinateur a gagné !");
-
-        logger.debug("FIN de la méthode");
-
+            logger.info("L'ordinateur a gagné, le joueur a perdu");
+        }
     }
 
     /**
@@ -114,15 +97,9 @@ public class Tools {
      * @param combinaisonSecrete la valeur que le joueur doit trouver
      */
     public static void devMode(StringBuilder combinaisonSecrete) {
-
-        logger.debug("APPEL de la méthode avec en paramètre combinaisonSecrete: " + combinaisonSecrete);
-
         System.out.println("\n" + "----------------DEV MODE ACTIF------------------");
         System.out.println("La combinaison secrète est : " + combinaisonSecrete);
         System.out.println("--------------------------------------------------" + "\n");
-
-        logger.debug("FIN de la méthode");
-
     }
 
     /**
@@ -131,9 +108,6 @@ public class Tools {
      * @param numeroGagnant numéro du gagant
      */
     public static void gagnant(int numeroGagnant) {
-
-        logger.debug("APPEL de la méthode gagnant avec en paramètre numeroGagnant: " + numeroGagnant);
-
         switch (numeroGagnant) {
             case 1:
                 System.out.println("L'ordinateur a gagné !");
@@ -142,8 +116,6 @@ public class Tools {
                 System.out.println("Vous avez gagné !");
                 break;
         }
-
-        logger.debug("FIN de la méthode");
     }
 
     /**
@@ -152,41 +124,34 @@ public class Tools {
      * @param longNbAleaConf longueur du nombre aléatoire
      * @return la saisie de l'utilisateur de longueur longNbAleaConf en String
      */
-    public static String saisieNuméros(int longNbAleaConf) {
+    public static String saisieNumero(int longNbAleaConf){
 
-        logger.debug("APPEL de la méthode saisieNumero avec en paramètre longNbAleaConf: " + longNbAleaConf);
-
-        String choix = new String();
-        Integer saisieUtilisateur ;
+        String saisieUtil;
         Scanner sc = new Scanner(System.in);
-        StringBuilder firstCharZero = new StringBuilder();
-        boolean bonneSaisie ;
-        do{
-        try {
-            do {
-                System.out.println("Veuillez saisir un nombre ! (" + longNbAleaConf + ")");
-                saisieUtilisateur = sc.nextInt();
-                choix = saisieUtilisateur.toString();
+        boolean saisieCorrect = false;
 
-                if (choix.length() <= longNbAleaConf - 1){
-                    firstCharZero.delete(0, longNbAleaConf);
-                    for (int i = 0; i < longNbAleaConf - choix.length(); i++)
-                        firstCharZero.insert(i, 0);
-                    firstCharZero.append(choix);
-                    choix = firstCharZero.toString();
-                    System.out.println(firstCharZero);
+        do{
+            do {
+                System.out.println("Veuillez saisir un nombre (" + longNbAleaConf + " chiffres)");
+                logger.info("Demande de saisie d'une tentative de combinaison secrète au joueur");
+                saisieUtil = sc.next();
+
+                if (saisieUtil.length() == longNbAleaConf) {
+                    logger.info("Le joueur saisi comme combinaison: " + saisieUtil);
+                }else {
+                    logger.info("La saisie du joueur ne respecte pas la bonne longueur");
                 }
 
-                bonneSaisie = true ;
-            } while (choix.length() != longNbAleaConf && firstCharZero.length() != longNbAleaConf);
-        } catch (InputMismatchException e) {
-            sc.next();
-            System.out.println("Merci de saisir des chiffres(" + e + ")");
-            bonneSaisie = false;
-        }
-        }while (!bonneSaisie);
-        logger.debug("FIN de la méthode, elle retourne choix: " + choix);
-        return choix;
+            }while (saisieUtil.length() != longNbAleaConf);
+            for (int i = 0; i < longNbAleaConf; i++) {
+                saisieCorrect = isDigit(saisieUtil.charAt(i));
+                if (!saisieCorrect){
+                    logger.info("La saisie du joueur est incorecte");
+                    break;
+                }
+            }
+        }while (!saisieCorrect);
+        return saisieUtil;
     }
 
 
@@ -199,17 +164,56 @@ public class Tools {
      */
     public static String saisieSignes(int longNbAleaConf) {
 
-        logger.debug("APPEL de la méthode saisieSignes avec en paramètre longNbAleaConf: "+longNbAleaConf);
-
         String saisie;
+        boolean test = false ;
         Scanner sc = new Scanner(System.in);
         do {
-            saisie = sc.next();
-        } while (saisie.length() != longNbAleaConf);
-        for (int i = 0; i < longNbAleaConf; i++)
-            if (saisie.charAt(i) != '+' && saisie.charAt(i) != '-' && saisie.charAt(i) != '=')
-                saisieSignes(longNbAleaConf);
-            logger.debug("FIN de la méthode, elle retourne saisie: "+saisie);
+            do {
+                System.out.println("Merci de saisir votre réponse ("+longNbAleaConf+" signes)");
+                saisie = sc.next();
+            } while (saisie.length() != longNbAleaConf);
+            for (int i = 0; i < longNbAleaConf; i++)
+                if (saisie.charAt(i) != '+' && saisie.charAt(i) != '-' && saisie.charAt(i) != '='){
+                    test = false;
+                    break;
+        }else{
+                    test = true;
+                }
+        }while (!test);
         return saisie;
+    }
+
+    public static String saisieNumeroMastermind(int longNbAleaConf, int lowBound, int highBound){
+
+        String saisieUtil;
+        Scanner sc = new Scanner(System.in);
+        boolean saisieCorrect = false;
+        boolean entreBornes = false;
+
+        do {
+            do {
+                do {
+                    System.out.println("Veuillez saisir un nombre (" + longNbAleaConf + " chiffres)");
+                    saisieUtil = sc.next();
+                } while (saisieUtil.length() != longNbAleaConf);
+                for (int i = 0; i < longNbAleaConf; i++) {
+                    saisieCorrect = isDigit(saisieUtil.charAt(i));
+                    if (!saisieCorrect) {
+                        break;
+                    }
+                }
+            } while (!saisieCorrect);
+            for (int i = 0; i < longNbAleaConf; i++){
+                int y = Character.getNumericValue(saisieUtil.charAt(i));
+                if (y >= lowBound && y <= highBound){
+                    entreBornes = true ;
+
+                }else{
+                    entreBornes = false;
+                    break;
+                }
+            }
+        }while (!entreBornes);
+        return saisieUtil;
     }
 }

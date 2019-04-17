@@ -5,12 +5,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
-import static java.lang.Character.isDigit;
-
 public class PlusOuMoins {
 
     private static final Logger logger = LogManager.getLogger();
-    //Menu menu = new Menu();
+    Menu menu = new Menu();
 
     private int longNbAleaConf ; //Dans le fichier de conf
     private int nombreTourConf ; //Dans le fichier de conf
@@ -59,6 +57,7 @@ public class PlusOuMoins {
 
         //display un message pour la réponse
         System.out.println("Votre proposition est : " + choix + " -> Réponse : " + reponse);
+        logger.info("Le joueur propose "+choix+" la réponse de l'ordinateur est "+reponse);
         return reponse;
     }
 
@@ -71,15 +70,16 @@ public class PlusOuMoins {
         while (replay == true) { //Boucle utilisé afin de pouvoir rejouer en fin de partie
             replay = false ;
 
-            String choix = new String(); //Saisie de l'utlisateur
-            StringBuilder reponse = new StringBuilder();
-            StringBuilder nbAlea = new StringBuilder();
+            String choix ; //Saisie de l'utlisateur
+            StringBuilder reponse ;
+            StringBuilder nbAlea ;
 
             int numeroTour = 0;
 
             boolean winLoose = false;
 
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
+            logger.info("L'ordinateur génère sa combinaison secrète: "+nbAlea);
 
             if (devMode == 1)
                 Tools.devMode(nbAlea);
@@ -89,21 +89,25 @@ public class PlusOuMoins {
                 //Demande de première saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
 
                     numeroTour++;
+                    logger.info("Le numéro du Tour est: "+numeroTour);
                     Tools.affichageTour(numeroTour, nombreTourConf);
 
-
-                    choix = Tools.saisieNuméros(longNbAleaConf);
+                    choix = Tools.saisieNumero(longNbAleaConf);
 
                 reponse = mainGameChal(longNbAleaConf, choix, nbAlea);
                 winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);
 
             } while (!winLoose && numeroTour < nombreTourConf);
 
-            if (!winLoose)
+            if (!winLoose) {
                 System.out.println("Vous avez perdu !");
-            else
+                logger.info("L'ordinateur a gagné, le joueur a perdu");
+            }
+            else {
                 System.out.println("Bravo ! Vous avez trouvé la combinaison secrète ! (" + choix + ")");
-            replay = Menu.finDePArtie();
+                logger.info("Le joueur a gagné, l'ordinateur a perdu");
+            }
+            replay = menu.finDePArtie();
         }
     }
 
@@ -140,7 +144,7 @@ public class PlusOuMoins {
                         reponseOrdi.insert(i, geneNbAleay);
                     }
             }
-        }
+        };
     }
 
     /**
@@ -161,29 +165,34 @@ public class PlusOuMoins {
 
             //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
             System.out.println("L'ordinateur doit deviner votre combinaison !");
-            codeSecretUtilisateur = Tools.saisieNuméros(longNbAleaConf);
+            codeSecretUtilisateur = Tools.saisieNumero(longNbAleaConf);
+            logger.info("Le joueur saisi la combinaison secrète que l'ordinateur doit deviner: "+codeSecretUtilisateur);
 
             reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9);
 
             //Ici l'ordinateur doit générer une nouvelle réponse en fonction de la variable choix
             do {
                 numeroTour++;
+                logger.info("Le numéro du tour est: "+numeroTour);
                 reponseEnSigne.delete(0, reponseEnSigne.length());
                 Tools.affichageTour(numeroTour, nombreTourConf);
 
                 //On récupère ici la réponse de l'utilisateur
                 System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
+                logger.info("L'ordinateur donne comme réponse : "+reponseOrdi);
                 System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
                 saisieUtilisateur = Tools.saisieSignes(longNbAleaConf);
+                logger.info("Le joueur donne comme réponse: "+saisieUtilisateur);
                 System.out.println("Vous avez saisi: " + saisieUtilisateur);
 
                 reponseEnSigne.append(saisieUtilisateur); //On passe en StringBuilder afin de pouvoir utiliser la méthode combinaisonValide dans Tools
 
                 mainGameDef(longNbAleaConf, saisieUtilisateur, reponseOrdi, r);
+
                 winLoose = Tools.combinaisonValide(reponseEnSigne, longNbAleaConf);
             } while  (!winLoose && numeroTour < nombreTourConf );
             Tools.winLoose(winLoose);
-            replay = Menu.finDePArtie();
+            replay = menu.finDePArtie();
         }
     }
 
@@ -224,7 +233,7 @@ public class PlusOuMoins {
 
             //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
             System.out.println("Veuillez saisir le nombre que l'ordinateur doit deviner ! (" + longNbAleaConf + " chiffres)");
-            codeSecretUtilisateur = Tools.saisieNuméros(longNbAleaConf);
+            codeSecretUtilisateur = Tools.saisieNumero(longNbAleaConf);
 
             do {
                 //On incrémente le numéro du tour + display du tour en cours
@@ -253,7 +262,7 @@ public class PlusOuMoins {
                     //Demande de saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
                     do {
                         System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
-                        choix = Tools.saisieNuméros(longNbAleaConf);
+                        choix = Tools.saisieNumero(longNbAleaConf);
                     } while (choix.length() != longNbAleaConf);
 
                     mainGameChal(longNbAleaConf, choix, nbAlea); //On génère la réponse de l'ordinateur en signe.
@@ -262,7 +271,7 @@ public class PlusOuMoins {
                 }
             }while (!winLoose);
             Tools.gagnant(gagnant);
-            replay = Menu.finDePArtie();
+            replay = menu.finDePArtie();
         }
     }
 }
