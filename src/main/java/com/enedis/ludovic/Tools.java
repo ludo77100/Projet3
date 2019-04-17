@@ -61,7 +61,7 @@ public class Tools {
                 return false;
             }
         }
-        logger.info("La réponse du joueur est la bonne");
+        logger.info("La réponse est la bonne");
         return true;
     }
 
@@ -111,9 +111,11 @@ public class Tools {
         switch (numeroGagnant) {
             case 1:
                 System.out.println("L'ordinateur a gagné !");
+                logger.info("L'ordinateur a gagné, le joueur a perdu");
                 break;
             case 2:
                 System.out.println("Vous avez gagné !");
+                logger.info("Le joueur a gagné, l'ordinateur a perdu");
                 break;
         }
     }
@@ -133,7 +135,7 @@ public class Tools {
         do{
             do {
                 System.out.println("Veuillez saisir un nombre (" + longNbAleaConf + " chiffres)");
-                logger.info("Demande de saisie d'une tentative de combinaison secrète au joueur");
+                logger.info("Demande de saisie d'une combinaison secrète au joueur");
                 saisieUtil = sc.next();
 
                 if (saisieUtil.length() == longNbAleaConf) {

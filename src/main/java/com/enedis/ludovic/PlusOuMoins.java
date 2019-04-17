@@ -233,18 +233,24 @@ public class PlusOuMoins {
 
             //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
             System.out.println("Veuillez saisir le nombre que l'ordinateur doit deviner ! (" + longNbAleaConf + " chiffres)");
+            logger.info("Le jouer doit saisir le nombre que l'ordinateur doit trouver");
             codeSecretUtilisateur = Tools.saisieNumero(longNbAleaConf);
+            logger.info("La combinaison que l'ordinateur doit deviner est: "+codeSecretUtilisateur);
 
             do {
                 //On incrémente le numéro du tour + display du tour en cours
                 numeroTour++;
+                logger.info("Le numéro du tour est "+numeroTour);
                 Tools.affichageTour(numeroTour, nombreTourConf);
 
+                logger.info("L'ordinateur joue");
                 //L'ordinateur affiche sa première tentative, pour chaque chiffre l'utilisateur indique +, = ou -
                 System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
+                logger.info("L'ordinateur donne comme réponse : "+reponseOrdi);
                 System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
                 saisieUtilisateur = Tools.saisieSignes(longNbAleaConf);
                 System.out.println("Vous avez saisi: " + saisieUtilisateur);
+                logger.info("L'utilisateur donne comme réponse : "+saisieUtilisateur);
 
                 mainGameDef(longNbAleaConf, saisieUtilisateur, reponseOrdi, r); //On génère une nouvelle réponse en fonction de la réponse de l'utilisateur
                 reponseEnSigne.delete(0, reponseEnSigne.length()); //On supprime la réponse de l'utilisateur pour la prochaine tentative afin de ne pas mettre bout à bout ses réponses
@@ -256,16 +262,15 @@ public class PlusOuMoins {
                     break;
                 } else {
 
+                    logger.info("Le joueur joue");
                     System.out.println("A votre tour, à vous de trouver le nombre de l'ordinateur");
                     reponse.delete(0, longNbAleaConf);//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
 
-                    //Demande de saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
-                    do {
+                    //Demande de saisie utillisateur
                         System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
                         choix = Tools.saisieNumero(longNbAleaConf);
-                    } while (choix.length() != longNbAleaConf);
 
-                    mainGameChal(longNbAleaConf, choix, nbAlea); //On génère la réponse de l'ordinateur en signe.
+                    reponse = mainGameChal(longNbAleaConf, choix, nbAlea); //On génère la réponse de l'ordinateur en signe.
                     winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);//On regarde si l'utilisateur à gagné
                     gagnant = 2;
                 }
