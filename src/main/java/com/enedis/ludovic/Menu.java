@@ -5,6 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
+/**
+ * Classe pour l'affichage des menus et les selections de jeu, mode et choix de fin de partie
+ */
 public class Menu {
 
     private static final Logger logger = LogManager.getLogger();

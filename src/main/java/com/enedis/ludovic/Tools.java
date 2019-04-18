@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 import static java.lang.Character.isDigit;
 
+/**
+ * Classe avec les méthodes outils pour les deux jeux
+ */
 public class Tools {
 
     private static final Logger logger = LogManager.getLogger();
@@ -29,22 +32,6 @@ public class Tools {
             nbAlea.insert(i, geneNbAlea);
         }
         return nbAlea;
-    }
-
-    /**
-     * Méthode qui permet de creer une chaine de caractere de type StringBuilder correspondant a la longeur du nbAlea
-     * Elle permet de tester et d'arréter la boucle for du jeu si le joueur trouve la bonne réponse
-     * <p>
-     * On peut aussi creer une fonction qui regarde le nombre de = dans reponse et le compare a la longueur de nbAlea, si ! continue alors ... (moins gourmand en mémoire si très grand nombre?)
-     */
-    public static StringBuilder geneTesterEquals(int longNbAleaConf) {
-
-        StringBuilder testerEquals = new StringBuilder();
-
-        for (int i = 0; i < longNbAleaConf; i++) {
-            testerEquals.insert(i, "=");
-        }
-        return testerEquals;
     }
 
     /**
@@ -80,7 +67,10 @@ public class Tools {
         System.out.println("**********************************************" + "\n");
     }
 
-    //todo javadoc
+    /**
+     * Cette méthode permet d'afficher le gagnant
+     * @param winLoose le boolean qui désigne le gagnant
+     */
     public static void winLoose(boolean winLoose) {
         if (!winLoose) {
             System.out.println("L'ordinateur à perdu !");
@@ -121,7 +111,7 @@ public class Tools {
     }
 
     /**
-     * Cette méthode permet de récuper la saisie de l'utilisateur, elle récupère un int qui ensuite retourner en String
+     * Cette méthode permet de récuperer la saisie de l'utilisateur
      *
      * @param longNbAleaConf longueur du nombre aléatoire
      * @return la saisie de l'utilisateur de longueur longNbAleaConf en String
@@ -156,7 +146,6 @@ public class Tools {
         return saisieUtil;
     }
 
-
     /**
      * Cette méthode permet de récuperer la saisie de l'utilisateur, elle ne récupère que les signes =, - ou + et les retourne en String
      * Elle vérifie également que la saisie est de la bonne longueur
@@ -185,6 +174,13 @@ public class Tools {
         return saisie;
     }
 
+    /**
+     * Cette méthode permet de récupérer la saisie de l'utilisateur pour le mastermind
+     * @param longNbAleaConf longueur du nombre aléatoire
+     * @param lowBound limite basse de saisie
+     * @param highBound limite haute de saisie
+     * @return la saisie de l'utilisateur
+     */
     public static String saisieNumeroMastermind(int longNbAleaConf, int lowBound, int highBound){
 
         String saisieUtil;
@@ -195,12 +191,19 @@ public class Tools {
         do {
             do {
                 do {
-                    System.out.println("Veuillez saisir un nombre (" + longNbAleaConf + " chiffres)");
+                    logger.info("Demande de saisie d'une tentative de combinaison au joueur");
+                    System.out.println("Veuillez saisir une combinaison (" + longNbAleaConf + " chiffres), compris entre "+lowBound+" et "+highBound);
                     saisieUtil = sc.next();
+                    if (saisieUtil.length() != longNbAleaConf) {
+                        logger.info("La longueur de la combinaison n'est pas la bonne");
+                        System.out.println("La longueur de votre combinaison n'est pas la bonne");
+                    }
                 } while (saisieUtil.length() != longNbAleaConf);
                 for (int i = 0; i < longNbAleaConf; i++) {
                     saisieCorrect = isDigit(saisieUtil.charAt(i));
                     if (!saisieCorrect) {
+                        logger.info("La combinaison ne comporte pas que des chiffres");
+                        System.out.println("Merci de ne saisir que des chiffres");
                         break;
                     }
                 }
@@ -212,6 +215,8 @@ public class Tools {
 
                 }else{
                     entreBornes = false;
+                    logger.info("Les chiffres de la combinaison se sont pas compris entre "+lowBound+" et "+highBound);
+                    System.out.println("Les chiffres de la combinaison doivent être compris entre "+lowBound+" et "+highBound);
                     break;
                 }
             }

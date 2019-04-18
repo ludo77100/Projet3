@@ -5,6 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+/**
+ * Classe du jeux Plus ou Moins avec ses 3 modes
+ */
 public class PlusOuMoins {
 
     private static final Logger logger = LogManager.getLogger();

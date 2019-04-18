@@ -1,14 +1,20 @@
 package com.enedis.ludovic;
 
-
 import java.io.FileInputStream;
 import java.util.Properties;
 
+/**
+ * Classe pour charger le fichier config.properties
+ */
 public class Config {
 
     Properties properties;
     String filePath;
 
+    /**
+     * Cette méthode permet de charger le fichier de config
+     * @param filePath
+     */
     public Config(String filePath) {
 
         this.filePath = filePath;
@@ -26,10 +32,11 @@ public class Config {
         }
     }
 
-    public String getPropertiesByName(String propertieName) {
-        return properties.getProperty(propertieName);
-    }
-
+    /**
+     * Cette méthode permet de retourner la valeur d'un paramètre de config en fonction de son nom
+     * @param propertieName nom de la propriété
+     * @return la valeur de la propriété ciblé
+     */
     public int getIntPropertiesByName(String propertieName) {
         return Integer.parseInt(properties.getProperty(propertieName));
     }

@@ -1,10 +1,15 @@
 package com.enedis.ludovic;
 
-import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+/**
+ *Classe du jeux Mastermind avec ses 3 modes
+ */
 public class Mastermind {
 
     Menu menu = new Menu();
+    private static final Logger logger = LogManager.getLogger();
 
     private int longNbAleaConf; //Dans le fichier de conf
     private int nombreTourConf; //Dans le fichier de conf
@@ -42,15 +47,12 @@ public class Mastermind {
         String recupSaisieUtilisateur;
 
         //Demande au joueur de saisir sa tentative pour trouver la combinaison secrète
-
-
-        System.out.println("Veuillez saisir une combinaison (Chiffre de 0 à " + nombreChiffresUtilisables + ")");
         recupSaisieUtilisateur = Tools.saisieNumeroMastermind(longNbAleaConf, 0, nombreChiffresUtilisables);
+        logger.info("La tentative est: "+recupSaisieUtilisateur);
         tentativeCombinaison.append(recupSaisieUtilisateur);
 
         //Comparer la réponse de l'utilisateur à la solutions
         //Générer la réponse de l'ordinateur
-
 
         for (int i = 0; i < longNbAleaConf; i++) {
             if (combinaisonSecrete.toString().charAt(i) == tentativeCombinaison.charAt(i)) {
@@ -73,12 +75,22 @@ public class Mastermind {
 
         System.out.println(tentativeCombinaison);
         System.out.println("Vous avez " + nombrePositionOk + " pion en bonne position");
+        logger.info("Il y a "+nombrePositionOk+" pion en bonne position");
         System.out.println("Vous avez " + nombrePositionMauvaise + " pion en mauvaise position");
+        logger.info("Il y a "+nombrePositionMauvaise+" pion en mauvaise position");
         System.out.println("Vous avez " + nombreMauvais + " mauvais pion");
+        logger.info("Il y a "+nombreMauvais+" mauvais pion");
+
+        if (nombrePositionOk == longNbAleaConf){
+            logger.info("La tentative de combinaison est la bonne");
+            System.out.println("La tentative de combinaison du joueur est la bonne !");
+        }else{
+            logger.info("La tentative de combinaison n'est pas la bonne");
+            System.out.println("La tentative de combinaison du joueur n'est pas la bonne !");
+        }
 
         tentativeCombinaison.delete(0, longNbAleaConf);
         return nombrePositionOk;
-
     }
 
     /**
@@ -98,6 +110,7 @@ public class Mastermind {
 
             //L'ordinateur doit générer la solution
             combinaisonSecrete = Tools.geneNbAlea(longNbAleaConf, 0, nombreChiffresUtilisables);
+            logger.info("L'ordinateur a généré la combinaison secrète: "+combinaisonSecrete);
 
             if (devMode == 1)
                 Tools.devMode(combinaisonSecrete);
@@ -105,14 +118,18 @@ public class Mastermind {
             do {
                 numeroTour++;
                 Tools.affichageTour(numeroTour, nombreTourConf);
+                logger.info("Le numéro du tour est: "+numeroTour);
                 nombrePositionOk = mainGameChal(tentativeCombinaison, combinaisonSecrete);
 
             } while (nombrePositionOk != longNbAleaConf && numeroTour < nombreTourConf);
 
-            if (nombrePositionOk == longNbAleaConf)
+            if (nombrePositionOk == longNbAleaConf) {
                 System.out.println("Bravo, vous avez gagné");
-            else
+                logger.info("Le joueur a gagné, l'ordinateur a perdu");
+            }else {
                 System.out.println("Vous avez perdu !");
+                logger.info("L'ordinateur a gagné, le joueur a perdu");
+            }
             replay = menu.finDePArtie();
         }
     }
@@ -133,6 +150,15 @@ public class Mastermind {
                 tentativeCombinaison.insert(i, nouveauChiffre);
             }
         }
+
+        if (tentativeCombinaison != combinaisonSecrete){
+            logger.info("La tentative de combinaison de l'ordinateur n'est pas la bonne");
+            System.out.println("La tentative de combinaison de l'ordinateur n'est pas la bonne !");
+        }else{
+            logger.info("La tentative de combinaison de l'ordinateur est la bonne");
+            System.out.println("La tentative de combinaison de l'ordinateur est la bonne !");
+        }
+
         return tentativeCombinaison;
     }
 
@@ -157,26 +183,32 @@ public class Mastermind {
             //L'utilisateur décide de la combinaison secrète
             System.out.println("Veuillez saisir la combinaison secrète que l'ordinateur doit deviner");
             recupSaisieUtilisateur = Tools.saisieNumeroMastermind(longNbAleaConf, 0, nombreChiffresUtilisables);
+            logger.info("L'utilisateur décide de la combinaison que l'ordinateur doit deviner: "+recupSaisieUtilisateur);
             combinaisonSecrete.append(recupSaisieUtilisateur);
 
             //L'ordinateur génère sa première réponse
             tentativeCombinaison = Tools.geneNbAlea(longNbAleaConf, 0, nombreChiffresUtilisables);
 
-            System.out.println(tentativeCombinaison);
-
             //On compare la combinaison a la réponse de l'ordi
             do {
                 numeroTour++;
                 Tools.affichageTour(numeroTour, nombreTourConf);
+                logger.info("Le numéro du tour est: "+numeroTour);
+
                 tentativeCombinaison = mainGameDef(tentativeCombinaison, combinaisonSecrete);
+                logger.info("La tentative de l'ordinateur est: "+tentativeCombinaison);
 
                 System.out.println(tentativeCombinaison);
             } while (!tentativeCombinaison.toString().equals(combinaisonSecrete.toString()) && numeroTour < nombreTourConf);
 
-            if (!tentativeCombinaison.toString().equals(combinaisonSecrete.toString()))
+            if (!tentativeCombinaison.toString().equals(combinaisonSecrete.toString())) {
+                logger.info("Le joueur a gagné, l'ordinateur a perdu");
                 System.out.println("L'ordinateur à perdu !");
-            else
+            }else {
+                logger.info("L'ordinateur a gagné, le joueur a perdu");
                 System.out.println("L'ordinateur à gagné en " + numeroTour + " tours !");
+            }
+
             replay = menu.finDePArtie();
         }
     }
@@ -192,7 +224,6 @@ public class Mastermind {
 
             replay = false;
 
-            Scanner sc = new Scanner(System.in);
             String recupSaisieUtilisateur;
             int numeroTour = 0;
             int gagnant = 0;
@@ -216,20 +247,24 @@ public class Mastermind {
                 Tools.devMode(combinaisonSecreteJoueur);
 
             System.out.println("Veuillez saisir la combinaison secrète que l'ordinateur doit deviner:");
-            recupSaisieUtilisateur = Tools.saisieNumero(longNbAleaConf);
+            recupSaisieUtilisateur = Tools.saisieNumeroMastermind(longNbAleaConf,0, nombreChiffresUtilisables);
+            logger.info("L'utilisateur décide de la combinaison que l'ordinateur doit deviner: "+recupSaisieUtilisateur);
             combinaisonSecreteOrdi.append(recupSaisieUtilisateur);
 
             do {
                 numeroTour++;
+                logger.info("Le numéro du tour est: "+numeroTour);
                 Tools.affichageTour(numeroTour, nombreTourConf);
+                logger.info("Au tour de l'ordinateur");
                 tentativeCombinaisonOrdi = mainGameDef(tentativeCombinaisonOrdi, combinaisonSecreteOrdi);
                 System.out.println("L'ordinateur donne : " + tentativeCombinaisonOrdi);
+                logger.info("L'ordinateur donne comme combinaison: "+tentativeCombinaisonOrdi);
                 if (tentativeCombinaisonOrdi.toString().equals(combinaisonSecreteOrdi.toString())) {
                     gagnant = 1;
                     break;
                 } else {
                     System.out.println("A votre tour, à vous de trouver le nombre de l'ordinateur");
-                    System.out.println("mode dev: " + combinaisonSecreteJoueur);
+                    logger.info("AU tour du joueur");
                     nombrePositionOk = mainGameChal(tentativeCombinaisonJoueur, combinaisonSecreteJoueur);
                     if (nombrePositionOk == longNbAleaConf) {
                         gagnant = 2;

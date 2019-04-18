@@ -1,11 +1,9 @@
 package com.enedis.ludovic;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+/**
+ * Classe avec les méthodes poupr afficher des messages en ASCII
+ */
 public class Messages {
-
-    public static final Logger logger = LogManager.getLogger();
 
     /**
      * Cette méthode affiche le message bienvenue en ASCII
@@ -37,5 +35,4 @@ public class Messages {
         System.out.println("| |  | | (_| \\__ \\ ||  __/ |  | | | | | | | | | | (_| |");
         System.out.println("|_|  |_|\\__,_|___/\\__\\___|_|  |_| |_| |_|_|_| |_|\\__,_|");
     }
-
 }
