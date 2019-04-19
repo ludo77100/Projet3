@@ -11,11 +11,12 @@ import java.util.Random;
 public class PlusOuMoins {
 
     private static final Logger logger = LogManager.getLogger();
-    Menu menu = new Menu();
+
 
     private int longNbAleaConf ; //Dans le fichier de conf
     private int nombreTourConf ; //Dans le fichier de conf
     private int devMode ; //Dans le fichier de conf
+    private String devModeArgs;
 
     /**
      * Constructeur du jeux Plus ou Moins
@@ -23,12 +24,13 @@ public class PlusOuMoins {
      * @param nombreTourConf nombre de tour possible, passer dans config.properties
      * @param devMode Mode developpeur activé ou non, passer dans config.properties
      */
-    public PlusOuMoins(int longNbAleaConf, int nombreTourConf, int devMode) {
+    public PlusOuMoins(int longNbAleaConf, int nombreTourConf, int devMode, String devModeArgs) {
         this.longNbAleaConf = longNbAleaConf;
         this.nombreTourConf = nombreTourConf;
         this.devMode = devMode;
+        this.devModeArgs = devModeArgs;
     }
-
+    Menu menu = new Menu(devModeArgs);
 
     /**
      * Cette méthode permet de générer la réponse en fonction de la réponse de l'utilisateur
@@ -84,7 +86,7 @@ public class PlusOuMoins {
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
             logger.info("L'ordinateur génère sa combinaison secrète: "+nbAlea);
 
-            if (devMode == 1)
+            if (devMode == 1 || devModeArgs.equals("dm"))
                 Tools.devMode(nbAlea);
 
             do {

@@ -8,13 +8,14 @@ import org.apache.logging.log4j.Logger;
  */
 public class Mastermind {
 
-    Menu menu = new Menu();
+
     private static final Logger logger = LogManager.getLogger();
 
     private int longNbAleaConf; //Dans le fichier de conf
     private int nombreTourConf; //Dans le fichier de conf
     private int nombreChiffresUtilisables; //Dans le fichier de conf
     private int devMode; //Dans le fichier de conf
+    private  String devModeArgs;
 
     /**
      * Constructeur du jeux Mastermind
@@ -24,12 +25,15 @@ public class Mastermind {
      * @param nombreChiffresUtilisables nombre de pion utilisable, de 4 à 9, passer dans config.properties
      * @param devMode                   Mode developpeur activé ou non, passer dans config.properties
      */
-    public Mastermind(int longNbAleaConf, int nombreTourConf, int nombreChiffresUtilisables, int devMode) {
+    public Mastermind(int longNbAleaConf, int nombreTourConf, int nombreChiffresUtilisables, int devMode, String devModeArgs) {
         this.longNbAleaConf = longNbAleaConf;
         this.nombreTourConf = nombreTourConf;
         this.nombreChiffresUtilisables = nombreChiffresUtilisables - 1;
         this.devMode = devMode;
+        this.devModeArgs = devModeArgs;
     }
+
+    Menu menu = new Menu(devModeArgs);
 
     /**
      * Cette méthode permet de comparer la réponse de l'utilisateur à la combinaison de l'ordinateur

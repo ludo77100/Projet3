@@ -16,7 +16,14 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        Menu menu = new Menu();
+        String devModeArgs ;
+
+        if (args.length == 0)
+            devModeArgs = "ndm";
+        else
+            devModeArgs = "dm";
+
+        Menu menu = new Menu(devModeArgs);
 
         logger.info("Execution de l'application");
         Messages.bienvenue();

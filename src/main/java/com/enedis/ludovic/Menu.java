@@ -11,7 +11,11 @@ import java.util.Scanner;
 public class Menu {
 
     private static final Logger logger = LogManager.getLogger();
+    private String devModeArgs ;
 
+    public Menu(String devModeArgs) {
+        this.devModeArgs = devModeArgs;
+    }
     /**
      * Cette méthode est utilisé afin d'afficher les menus de selection, pour le choix du jeu ainsi que du mode
      */
@@ -24,8 +28,8 @@ public class Menu {
         int nombreChiffreUtilisables = config.getIntPropertiesByName("nombrePionPossible");
         int devMode = config.getIntPropertiesByName("devMode");
 
-        PlusOuMoins plusOuMoins = new PlusOuMoins(longNbAlea, nombreDeTour, devMode);
-        Mastermind mastermind = new Mastermind(longNbAlea, nombreDeTour, nombreChiffreUtilisables, devMode);
+        PlusOuMoins plusOuMoins = new PlusOuMoins(longNbAlea, nombreDeTour, devMode, devModeArgs);
+        Mastermind mastermind = new Mastermind(longNbAlea, nombreDeTour, nombreChiffreUtilisables, devMode, devModeArgs);
 
         int choixJeu;
         int choixMode;
