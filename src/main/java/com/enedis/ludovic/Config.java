@@ -1,6 +1,7 @@
 package com.enedis.ludovic;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -20,9 +21,8 @@ public class Config {
         this.filePath = filePath;
 
         properties = new Properties();
-        FileInputStream input = null;
         try {
-            input = new FileInputStream(filePath);
+            InputStream input = getClass().getClassLoader().getResourceAsStream(filePath);
 
             properties.load(input);
 

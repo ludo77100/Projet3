@@ -21,7 +21,7 @@ public class Menu {
      */
     public void gameChoice() {
 
-        Config config = new Config("src/main/resources/config.properties");
+        Config config = new Config("config.properties");
 
         int longNbAlea = config.getIntPropertiesByName("longNbAlea");
         int nombreDeTour = config.getIntPropertiesByName("nombreDeTour");
