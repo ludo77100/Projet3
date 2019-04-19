@@ -15,5 +15,5 @@ Comment compiler l'application:
 - Importer la configuration maven
 - Depuis le panneau maven, taper la commande "clean install" dans execute maven goal
 
-Depuis un terminal, se placer dans le dossier /emplacementDuProjetCloné/Projet3/target/
+Depuis un terminal, se placer dans le dossier /emplacementDuProjetCloné/Projet3/target/ <br />
 Lancer ensuite le programme avec la commande (vous pouvez passer en argument dm pour lancer le mode dev): java -jar Projet3-1.0-SNAPSHOT.jar
