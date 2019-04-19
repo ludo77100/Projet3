@@ -17,3 +17,6 @@ Comment compiler l'application:
 
 Depuis un terminal, se placer dans le dossier /emplacementDuProjetCloné/Projet3/target/ <br />
 Lancer ensuite le programme avec la commande (vous pouvez passer en argument dm pour lancer le mode dev): java -jar Projet3-1.0-SNAPSHOT.jar
+
+Vous pouvez configurer les règles du jeux grâce au fichier config.properties, en ouvrant ce fichier dans l'archive grâce un gestionnaire d'archive.<br />
+Vous pouvez ensuite modifier les paramèttres, enregistrer le config.properties et relancer le jeu dans le terminal.
