@@ -1,4 +1,4 @@
-Projet 3 parcours Développeur d'application Java:
+<b>Projet 3 parcours Développeur d'application Java:</b>
 
 Ce projet consiste à développer un programme contenant 2 jeux, une recherche de combinaison secrète à l'aide d'indication +/=/-, et un Mastermind !
 
