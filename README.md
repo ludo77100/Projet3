@@ -6,6 +6,7 @@ Pour chaque jeu, on peut configurer grâce au config.properties:
 - le nombre de cases de la combinaison secrète
 - le nombre d'essais possibles
 - le mode dev (pour afficher la combinaison à trouver)
+
 Pour le mastermind:
 - le nombre couleur/chiffre utilisables (de 4 à 10)
 
