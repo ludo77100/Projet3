@@ -116,7 +116,7 @@ public class Mastermind {
             combinaisonSecrete = Tools.geneNbAlea(longNbAleaConf, 0, nombreChiffresUtilisables);
             logger.info("L'ordinateur a généré la combinaison secrète: "+combinaisonSecrete);
 
-            if (devMode == 1)
+            if (devMode == 1 || devModeArgs.equals("dm"))
                 Tools.devMode(combinaisonSecrete);
 
             do {
@@ -247,7 +247,7 @@ public class Mastermind {
             tentativeCombinaisonOrdi = Tools.geneNbAlea(longNbAleaConf, 0, nombreChiffresUtilisables);
             //L'ordinateur génère la combinaison secrète que le joueur doit trouver
             combinaisonSecreteJoueur = Tools.geneNbAlea(longNbAleaConf, 0, nombreChiffresUtilisables);
-            if (devMode == 1)
+            if (devMode == 1 || devModeArgs.equals("dm"))
                 Tools.devMode(combinaisonSecreteJoueur);
 
             System.out.println("Veuillez saisir la combinaison secrète que l'ordinateur doit deviner:");

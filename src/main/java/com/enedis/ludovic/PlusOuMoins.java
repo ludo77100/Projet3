@@ -231,7 +231,7 @@ public class PlusOuMoins {
             reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9); //L'ordinateur génère sa première réponse
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre que l'utilisateur doit trouver
 
-            if (devMode == 1) //Condition permettant l'affichage de la solution que l'utilisateur doit trouver en dev mode
+            if (devMode == 1 || devModeArgs.equals("dm")) //Condition permettant l'affichage de la solution que l'utilisateur doit trouver en dev mode
                 Tools.devMode(nbAlea);
 
             System.out.println("L'odinateur commence !");
