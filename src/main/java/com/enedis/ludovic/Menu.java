@@ -11,11 +11,12 @@ import java.util.Scanner;
 public class Menu {
 
     private static final Logger logger = LogManager.getLogger();
-    private String devModeArgs ;
+    private String devModeArgs;
 
     public Menu(String devModeArgs) {
         this.devModeArgs = devModeArgs;
     }
+
     /**
      * Cette méthode est utilisé afin d'afficher les menus de selection, pour le choix du jeu ainsi que du mode
      */
@@ -108,6 +109,7 @@ public class Menu {
 
     /**
      * Cette méthode affiche le menu de fin de partie
+     *
      * @return retourne le boolean qui permet de refaire une nouvelle partie
      */
     public boolean finDePArtie() {
@@ -118,7 +120,7 @@ public class Menu {
         switch (replay) {
             case 1:
                 logger.info("L'utilisateur choisi de rejouer");
-                return true ;
+                return true;
             case 2:
                 logger.info("L'utilisateur choisi de jouer un autre jeu");
                 gameChoice();
@@ -133,6 +135,6 @@ public class Menu {
                 gameChoice();
                 break;
         }
-        return false ;
+        return false;
     }
 }

@@ -1,6 +1,5 @@
 package com.enedis.ludovic;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
