@@ -29,12 +29,18 @@ public class Menu {
         int nombreChiffreUtilisables = config.getIntPropertiesByName("nombrePionPossible");
         int devMode = config.getIntPropertiesByName("devMode");
 
-        PlusOuMoins plusOuMoins = new PlusOuMoins(longNbAlea, nombreDeTour, devMode, devModeArgs);
-        Mastermind mastermind = new Mastermind(longNbAlea, nombreDeTour, nombreChiffreUtilisables, devMode, devModeArgs);
+        if (devModeArgs.equals("dm"))
+            devMode = 1 ;
+
+        PlusOuMoins plusOuMoins = new PlusOuMoins(longNbAlea, nombreDeTour, devMode);
+        plusOuMoins.setMenu(this);
+        Mastermind mastermind = new Mastermind(longNbAlea, nombreDeTour, nombreChiffreUtilisables, devMode);
+        mastermind.setMenu(this);
 
         int choixJeu;
         int choixMode;
         Scanner sc = new Scanner(System.in);
+
         System.out.println("Veuillez choisir votre jeux");
         System.out.println("1: Recherche +/-");
         System.out.println("2: Mastermind");
@@ -42,7 +48,7 @@ public class Menu {
         logger.info("Demande du choix du jeu");
         switch (choixJeu) {
             case 1:
-                logger.info("L'utilisateur choisit le Plus ou Mois");
+                logger.info("L'utilisateur choisit le Plus ou Moins");
                 Messages.plusOuMoins();
                 System.out.println("Veuilez choisir votre mode de jeu. 1 - Challenger, 2 - Défenseur, 3 - Duel");
                 choixMode = sc.nextInt();

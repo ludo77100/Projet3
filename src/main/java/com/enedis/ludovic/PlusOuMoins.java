@@ -15,7 +15,7 @@ public class PlusOuMoins {
     private int longNbAleaConf; //Dans le fichier de conf
     private int nombreTourConf; //Dans le fichier de conf
     private int devMode; //Dans le fichier de conf
-    private String devModeArgs;
+    Menu menu ;
 
     /**
      * Constructeur du jeux Plus ou Moins
@@ -24,11 +24,10 @@ public class PlusOuMoins {
      * @param nombreTourConf nombre de tour possible, passer dans config.properties
      * @param devMode        Mode developpeur activé ou non, passer dans config.properties
      */
-    public PlusOuMoins(int longNbAleaConf, int nombreTourConf, int devMode, String devModeArgs) {
+    public PlusOuMoins(int longNbAleaConf, int nombreTourConf, int devMode) {
         this.longNbAleaConf = longNbAleaConf;
         this.nombreTourConf = nombreTourConf;
         this.devMode = devMode;
-        this.devModeArgs = devModeArgs;
     }
 
     /**
@@ -69,8 +68,6 @@ public class PlusOuMoins {
      */
     public void plusOuMoinsChallenger() {
 
-        Menu menu = new Menu(devModeArgs);
-
         boolean replay ;
 
         do { //Boucle utilisé afin de pouvoir rejouer en fin de partie
@@ -85,7 +82,7 @@ public class PlusOuMoins {
             combinaisonSecreteOrdinateur = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
             logger.info("L'ordinateur génère sa combinaison secrète: " + combinaisonSecreteOrdinateur);
 
-            if (devMode == 1 || devModeArgs.equals("dm"))
+            if (devMode == 1)
                 Tools.devMode(combinaisonSecreteOrdinateur);
 
             do {
@@ -155,15 +152,13 @@ public class PlusOuMoins {
      */
     public void plusOuMoinsDefenseur() {
 
-        Menu menu = new Menu(devModeArgs);
-
         boolean replay ;
         do {
 
             Random r = new Random();
             StringBuilder tentativeOrdinateur = new StringBuilder(); //Nombre généré par l'ordinateur
             StringBuilder reponseEnSigne = new StringBuilder(); //réponse saisie par le joueur avec =, -, +
-            String saisieUtilisateur; //Saisie de l'utlisateur, ensuite passé en stringbuilder
+            String saisieUtilisateur; //Saisie de l'utlisateur, ensuite passé en stringbuilder dans reponseEnSigne
             String combinaisonSecreteUtilisateur; //Combinaison secrète que l'ordinateur doit deviner
             int numeroTour = 0;
             boolean winLoose;
@@ -206,8 +201,6 @@ public class PlusOuMoins {
      */
     public void plusOuMoinsDuel() {
 
-        Menu menu = new Menu(devModeArgs);
-
         boolean replay ;
 
         do {
@@ -232,7 +225,7 @@ public class PlusOuMoins {
             reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9); //L'ordinateur génère sa première réponse
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre que l'utilisateur doit trouver
 
-            if (devMode == 1 || devModeArgs.equals("dm")) //Condition permettant l'affichage de la solution que l'utilisateur doit trouver en dev mode
+            if (devMode == 1 ) //Condition permettant l'affichage de la solution que l'utilisateur doit trouver en dev mode
                 Tools.devMode(nbAlea);
 
             System.out.println("L'odinateur commence !");
@@ -284,5 +277,9 @@ public class PlusOuMoins {
             Tools.gagnant(gagnant);
             replay = menu.finDePArtie();
         }while (replay);
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 }

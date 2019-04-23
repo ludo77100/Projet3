@@ -14,7 +14,7 @@ public class Mastermind {
     private int nombreTourConf; //Dans le fichier de conf
     private int nombreChiffresUtilisables; //Dans le fichier de conf
     private int devMode; //Dans le fichier de conf
-    private String devModeArgs;
+    Menu menu ;
 
     /**
      * Constructeur du jeux Mastermind
@@ -24,12 +24,11 @@ public class Mastermind {
      * @param nombreChiffresUtilisables nombre de pion utilisable, de 4 à 9, passer dans config.properties
      * @param devMode                   Mode developpeur activé ou non, passer dans config.properties
      */
-    public Mastermind(int longNbAleaConf, int nombreTourConf, int nombreChiffresUtilisables, int devMode, String devModeArgs) {
+    public Mastermind(int longNbAleaConf, int nombreTourConf, int nombreChiffresUtilisables, int devMode) {
         this.longNbAleaConf = longNbAleaConf;
         this.nombreTourConf = nombreTourConf;
         this.nombreChiffresUtilisables = nombreChiffresUtilisables - 1;
         this.devMode = devMode;
-        this.devModeArgs = devModeArgs;
     }
 
 
@@ -100,8 +99,6 @@ public class Mastermind {
      */
     public void mastermindChallenger() {
 
-        Menu menu = new Menu(devModeArgs);
-
         boolean replay ;
         do {
 
@@ -115,7 +112,7 @@ public class Mastermind {
             combinaisonSecrete = Tools.geneNbAlea(longNbAleaConf, 0, nombreChiffresUtilisables);
             logger.info("L'ordinateur a généré la combinaison secrète: " + combinaisonSecrete);
 
-            if (devMode == 1 || devModeArgs.equals("dm"))
+            if (devMode == 1)
                 Tools.devMode(combinaisonSecrete);
 
             do {
@@ -170,8 +167,6 @@ public class Mastermind {
      */
     public void mastermindDefenseur() {
 
-        Menu menu = new Menu(devModeArgs);
-
         boolean replay ;
 
         do {
@@ -221,8 +216,6 @@ public class Mastermind {
      */
     public void mastermindDuel() {
 
-        Menu menu = new Menu(devModeArgs);
-
         boolean replay ;
 
         do {
@@ -246,7 +239,7 @@ public class Mastermind {
             tentativeCombinaisonOrdi = Tools.geneNbAlea(longNbAleaConf, 0, nombreChiffresUtilisables);
             //L'ordinateur génère la combinaison secrète que le joueur doit trouver
             combinaisonSecreteJoueur = Tools.geneNbAlea(longNbAleaConf, 0, nombreChiffresUtilisables);
-            if (devMode == 1 || devModeArgs.equals("dm"))
+            if (devMode == 1)
                 Tools.devMode(combinaisonSecreteJoueur);
 
             System.out.println("Veuillez saisir la combinaison secrète que l'ordinateur doit deviner:");
@@ -278,5 +271,9 @@ public class Mastermind {
             Tools.gagnant(gagnant);
             replay = menu.finDePArtie();
         }while (replay);
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 }

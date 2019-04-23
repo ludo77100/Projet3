@@ -19,11 +19,10 @@ public class Main {
      */
     public static void main(String[] args) throws FileNotFoundException {
 
-        String devModeArgs;
+        String devModeArgs = "ndm";
 
-        if (args.length == 0)
-            devModeArgs = "ndm";
-        else
+
+        if (args.length > 0 && args[0].equals("dm"))
             devModeArgs = "dm";
 
         Menu menu = new Menu(devModeArgs);
