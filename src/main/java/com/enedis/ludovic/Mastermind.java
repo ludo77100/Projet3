@@ -103,9 +103,9 @@ public class Mastermind {
 
         Menu menu = new Menu(devModeArgs);
 
-        boolean replay = true;
-        while (replay == true) {
-            replay = false;
+        boolean replay ;
+        do {
+
 
             int numeroTour = 0;//Compteur de nombre de tour
             int nombrePositionOk;
@@ -136,7 +136,7 @@ public class Mastermind {
                 logger.info("L'ordinateur a gagné, le joueur a perdu");
             }
             replay = menu.finDePArtie();
-        }
+        }while (replay);
     }
 
     /**
@@ -174,11 +174,9 @@ public class Mastermind {
 
         Menu menu = new Menu(devModeArgs);
 
-        boolean replay = true;
+        boolean replay ;
 
-        while (replay == true) {
-
-            replay = false;
+        do {
 
             int numeroTour = 0;//Compteur de nombre de tour
 
@@ -217,7 +215,7 @@ public class Mastermind {
             }
 
             replay = menu.finDePArtie();
-        }
+        } while (replay);
     }
 
     /**
@@ -227,11 +225,9 @@ public class Mastermind {
 
         Menu menu = new Menu(devModeArgs);
 
-        boolean replay = true;
+        boolean replay ;
 
-        while (replay == true) {
-
-            replay = false;
+        do {
 
             String recupSaisieUtilisateur;
             int numeroTour = 0;
@@ -283,6 +279,6 @@ public class Mastermind {
             } while (numeroTour < nombreTourConf);
             Tools.gagnant(gagnant);
             replay = menu.finDePArtie();
-        }
+        }while (replay);
     }
 }

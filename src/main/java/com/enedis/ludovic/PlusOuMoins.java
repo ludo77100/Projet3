@@ -73,7 +73,7 @@ public class PlusOuMoins {
 
         Menu menu = new Menu(devModeArgs);
 
-        boolean replay = false;
+        boolean replay ;
 
         do { //Boucle utilisé afin de pouvoir rejouer en fin de partie
 
@@ -160,7 +160,7 @@ public class PlusOuMoins {
 
         Menu menu = new Menu(devModeArgs);
 
-        boolean replay = false;
+        boolean replay ;
         do {
 
             Random r = new Random();
@@ -211,7 +211,7 @@ public class PlusOuMoins {
 
         Menu menu = new Menu(devModeArgs);
 
-        boolean replay = false;
+        boolean replay ;
 
         do {
 
