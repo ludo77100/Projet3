@@ -31,8 +31,6 @@ public class PlusOuMoins {
         this.devModeArgs = devModeArgs;
     }
 
-
-
     /**
      * Cette méthode permet de générer la réponse en fonction de la réponse de l'utilisateur
      *
@@ -47,7 +45,7 @@ public class PlusOuMoins {
         reponse.delete(0, reponse.length());//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
 
         for (int i = 0; i < longNbAleaConf; i++) {
-            int y = Character.getNumericValue(nbAlea.charAt(i));
+            int y = Character.getNumericValue(nbAlea.charAt(i)); //On récupère la valeur numérique
             int z = Character.getNumericValue(choix.charAt(i));
 
             if (y == z)
@@ -78,18 +76,17 @@ public class PlusOuMoins {
         do { //Boucle utilisé afin de pouvoir rejouer en fin de partie
 
             String choix; //Saisie de l'utlisateur
-            StringBuilder reponse;
-            StringBuilder nbAlea;
+            StringBuilder reponseEnSigneOrdinateur; //réponse en signe généré par l'ordinateur
+            StringBuilder combinaisonSecreteOrdinateur; //combinaison de l'ordinateur que le joueur doit trouver
 
             int numeroTour = 0;
-
             boolean winLoose = false;
 
-            nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
-            logger.info("L'ordinateur génère sa combinaison secrète: " + nbAlea);
+            combinaisonSecreteOrdinateur = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
+            logger.info("L'ordinateur génère sa combinaison secrète: " + combinaisonSecreteOrdinateur);
 
             if (devMode == 1 || devModeArgs.equals("dm"))
-                Tools.devMode(nbAlea);
+                Tools.devMode(combinaisonSecreteOrdinateur);
 
             do {
 
@@ -101,8 +98,8 @@ public class PlusOuMoins {
 
                 choix = Tools.saisieNumero(longNbAleaConf);
 
-                reponse = mainGameChal(longNbAleaConf, choix, nbAlea);
-                winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);
+                reponseEnSigneOrdinateur = mainGameChal(longNbAleaConf, choix, combinaisonSecreteOrdinateur);
+                winLoose = Tools.combinaisonValide(reponseEnSigneOrdinateur, longNbAleaConf);
 
             } while (!winLoose && numeroTour < nombreTourConf);
 
@@ -164,19 +161,19 @@ public class PlusOuMoins {
         do {
 
             Random r = new Random();
-            StringBuilder reponseOrdi = new StringBuilder(); //Nombre généré par l'ordinateur
-            StringBuilder reponseEnSigne = new StringBuilder();
-            String saisieUtilisateur; //Saisie de l'utlisateur
-            String codeSecretUtilisateur;
+            StringBuilder tentativeOrdinateur = new StringBuilder(); //Nombre généré par l'ordinateur
+            StringBuilder reponseEnSigne = new StringBuilder(); //réponse saisie par le joueur avec =, -, +
+            String saisieUtilisateur; //Saisie de l'utlisateur, ensuite passé en stringbuilder
+            String combinaisonSecreteUtilisateur; //Combinaison secrète que l'ordinateur doit deviner
             int numeroTour = 0;
             boolean winLoose;
 
             //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
             System.out.println("L'ordinateur doit deviner votre combinaison !");
-            codeSecretUtilisateur = Tools.saisieNumero(longNbAleaConf);
-            logger.info("Le joueur saisi la combinaison secrète que l'ordinateur doit deviner: " + codeSecretUtilisateur);
+            combinaisonSecreteUtilisateur = Tools.saisieNumero(longNbAleaConf);
+            logger.info("Le joueur saisi la combinaison secrète que l'ordinateur doit deviner: " + combinaisonSecreteUtilisateur);
 
-            reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9);
+            tentativeOrdinateur = Tools.geneNbAlea(longNbAleaConf, 1, 9);
 
             //Ici l'ordinateur doit générer une nouvelle réponse en fonction de la variable choix
             do {
@@ -186,16 +183,16 @@ public class PlusOuMoins {
                 Tools.affichageTour(numeroTour, nombreTourConf);
 
                 //On récupère ici la réponse de l'utilisateur
-                System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
-                logger.info("L'ordinateur donne comme réponse : " + reponseOrdi);
-                System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
+                System.out.println("L'ordinateur vous donne comme réponse : " + tentativeOrdinateur);
+                logger.info("L'ordinateur donne comme réponse : " + tentativeOrdinateur);
+                System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + combinaisonSecreteUtilisateur + ")");
                 saisieUtilisateur = Tools.saisieSignes(longNbAleaConf);
                 logger.info("Le joueur donne comme réponse: " + saisieUtilisateur);
                 System.out.println("Vous avez saisi: " + saisieUtilisateur);
 
                 reponseEnSigne.append(saisieUtilisateur); //On passe en StringBuilder afin de pouvoir utiliser la méthode combinaisonValide dans Tools
 
-                mainGameDef(longNbAleaConf, saisieUtilisateur, reponseOrdi, r);
+                mainGameDef(longNbAleaConf, saisieUtilisateur, tentativeOrdinateur, r);
 
                 winLoose = Tools.combinaisonValide(reponseEnSigne, longNbAleaConf);
             } while (!winLoose && numeroTour < nombreTourConf);
