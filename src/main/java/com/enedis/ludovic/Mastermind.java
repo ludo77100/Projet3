@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
  */
 public class Mastermind {
 
-
     private static final Logger logger = LogManager.getLogger();
 
     private int longNbAleaConf; //Dans le fichier de conf
@@ -105,7 +104,6 @@ public class Mastermind {
 
         boolean replay ;
         do {
-
 
             int numeroTour = 0;//Compteur de nombre de tour
             int nombrePositionOk;
