@@ -12,17 +12,17 @@ public class PlusOuMoins {
 
     private static final Logger logger = LogManager.getLogger();
 
-
-    private int longNbAleaConf ; //Dans le fichier de conf
-    private int nombreTourConf ; //Dans le fichier de conf
-    private int devMode ; //Dans le fichier de conf
+    private int longNbAleaConf; //Dans le fichier de conf
+    private int nombreTourConf; //Dans le fichier de conf
+    private int devMode; //Dans le fichier de conf
     private String devModeArgs;
 
     /**
      * Constructeur du jeux Plus ou Moins
+     *
      * @param longNbAleaConf longeur du nombre à trouver, passer dans config.properties
      * @param nombreTourConf nombre de tour possible, passer dans config.properties
-     * @param devMode Mode developpeur activé ou non, passer dans config.properties
+     * @param devMode        Mode developpeur activé ou non, passer dans config.properties
      */
     public PlusOuMoins(int longNbAleaConf, int nombreTourConf, int devMode, String devModeArgs) {
         this.longNbAleaConf = longNbAleaConf;
@@ -30,18 +30,18 @@ public class PlusOuMoins {
         this.devMode = devMode;
         this.devModeArgs = devModeArgs;
     }
-    Menu menu = new Menu(devModeArgs);
+
+
 
     /**
      * Cette méthode permet de générer la réponse en fonction de la réponse de l'utilisateur
      *
      * @param longNbAleaConf passé dans le fichier conf, longueur du nombre à trouvé
-     * @param choix c'est la réponse rentré par l'utilisateur
-     * @param nbAlea ce nombre est généré aléatoirement (dans Tools méthode geneNbAlea)
+     * @param choix          c'est la réponse rentré par l'utilisateur
+     * @param nbAlea         ce nombre est généré aléatoirement (dans Tools méthode geneNbAlea)
      * @return reponse réponse généré par l'ordinateur (avec les signes =+-)
-     *
      */
-    private StringBuilder mainGameChal(int longNbAleaConf, String choix, StringBuilder nbAlea){
+    private StringBuilder mainGameChal(int longNbAleaConf, String choix, StringBuilder nbAlea) {
 
         StringBuilder reponse = new StringBuilder();
         reponse.delete(0, reponse.length());//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
@@ -62,29 +62,31 @@ public class PlusOuMoins {
 
         //display un message pour la réponse
         System.out.println("Votre proposition est : " + choix + " -> Réponse : " + reponse);
-        logger.info("Le joueur propose "+choix+" la réponse de l'ordinateur est "+reponse);
+        logger.info("Le joueur propose " + choix + " la réponse de l'ordinateur est " + reponse);
         return reponse;
     }
 
-     /**
+    /**
      * Méthode du jeux Plus ou Moins dans son mode Challenger, l'utilisateur doit trouver la solution de l'ordinateur
      */
     public void plusOuMoinsChallenger() {
 
-        boolean replay = true;
-        while (replay == true) { //Boucle utilisé afin de pouvoir rejouer en fin de partie
-            replay = false ;
+        Menu menu = new Menu(devModeArgs);
 
-            String choix ; //Saisie de l'utlisateur
-            StringBuilder reponse ;
-            StringBuilder nbAlea ;
+        boolean replay = false;
+
+        do { //Boucle utilisé afin de pouvoir rejouer en fin de partie
+
+            String choix; //Saisie de l'utlisateur
+            StringBuilder reponse;
+            StringBuilder nbAlea;
 
             int numeroTour = 0;
 
             boolean winLoose = false;
 
             nbAlea = Tools.geneNbAlea(longNbAleaConf, 1, 9); //Génération du nombre aléatoire
-            logger.info("L'ordinateur génère sa combinaison secrète: "+nbAlea);
+            logger.info("L'ordinateur génère sa combinaison secrète: " + nbAlea);
 
             if (devMode == 1 || devModeArgs.equals("dm"))
                 Tools.devMode(nbAlea);
@@ -93,11 +95,11 @@ public class PlusOuMoins {
 
                 //Demande de première saisie utillisateur et boucle pour avoir le bon nombre de chiffre saisi par l'utilisateur
 
-                    numeroTour++;
-                    logger.info("Le numéro du Tour est: "+numeroTour);
-                    Tools.affichageTour(numeroTour, nombreTourConf);
+                numeroTour++;
+                logger.info("Le numéro du Tour est: " + numeroTour);
+                Tools.affichageTour(numeroTour, nombreTourConf);
 
-                    choix = Tools.saisieNumero(longNbAleaConf);
+                choix = Tools.saisieNumero(longNbAleaConf);
 
                 reponse = mainGameChal(longNbAleaConf, choix, nbAlea);
                 winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);
@@ -107,49 +109,48 @@ public class PlusOuMoins {
             if (!winLoose) {
                 System.out.println("Vous avez perdu !");
                 logger.info("L'ordinateur a gagné, le joueur a perdu");
-            }
-            else {
+            } else {
                 System.out.println("Bravo ! Vous avez trouvé la combinaison secrète ! (" + choix + ")");
                 logger.info("Le joueur a gagné, l'ordinateur a perdu");
             }
             replay = menu.finDePArtie();
-        }
+        }while (replay);
     }
 
     /**
-     *Cette méthode permet de généré un nouveau nombre aléatoire en fonction de la réponse en signe donné par l'utilisateur
+     * Cette méthode permet de généré un nouveau nombre aléatoire en fonction de la réponse en signe donné par l'utilisateur
      *
      * @param longNbAleaConf passé dans le fichier de conf, longueur du nombre à trouver
      * @param reponseEnSigne réponse avec les signes +,- ou = rentré par l'utilisateur
-     * @param reponseOrdi la réponse précédement généré par l'ordinateur, le passer en paramètre permet de générer un nombre aléatoire compris dans les bonnes bornes
-     * @param r Méthode Random
+     * @param reponseOrdi    la réponse précédement généré par l'ordinateur, le passer en paramètre permet de générer un nombre aléatoire compris dans les bonnes bornes
+     * @param r              Méthode Random
      */
-    private void mainGameDef(int longNbAleaConf, String reponseEnSigne, StringBuilder reponseOrdi, Random r){
-        for(int i = 0; i < longNbAleaConf; i++) {
+    private void mainGameDef(int longNbAleaConf, String reponseEnSigne, StringBuilder reponseOrdi, Random r) {
+        for (int i = 0; i < longNbAleaConf; i++) {
             switch (reponseEnSigne.charAt(i)) {
                 case ('='):
                     break;
                 case ('+'):
                     int z = Character.getNumericValue(reponseOrdi.charAt(i));
-                    int geneNbAleaz = z + r.nextInt((9+1) - z);
+                    int geneNbAleaz = z + r.nextInt((9 + 1) - z);
                     reponseOrdi.deleteCharAt(i);
                     reponseOrdi.insert(i, geneNbAleaz);
                     break;
                 case ('-'):
                     int y = Character.getNumericValue(reponseOrdi.charAt(i));
                     if (y > 1) {
-                        int geneNbAleay = 1 + r.nextInt(y + - 1);
+                        int geneNbAleay = 1 + r.nextInt(y + -1);
                         reponseOrdi.deleteCharAt(i);
                         reponseOrdi.insert(i, geneNbAleay);
                         break;
-                    }
-                    else {
-                        int geneNbAleay = 1 + r.nextInt((y+1) - 1);
+                    } else {
+                        int geneNbAleay = 1 + r.nextInt((y + 1) - 1);
                         reponseOrdi.deleteCharAt(i);
                         reponseOrdi.insert(i, geneNbAleay);
                     }
             }
-        };
+        }
+        ;
     }
 
     /**
@@ -157,8 +158,10 @@ public class PlusOuMoins {
      */
     public void plusOuMoinsDefenseur() {
 
-        boolean replay = true;
-        while (replay == true) {
+        Menu menu = new Menu(devModeArgs);
+
+        boolean replay = false;
+        do {
 
             Random r = new Random();
             StringBuilder reponseOrdi = new StringBuilder(); //Nombre généré par l'ordinateur
@@ -171,23 +174,23 @@ public class PlusOuMoins {
             //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
             System.out.println("L'ordinateur doit deviner votre combinaison !");
             codeSecretUtilisateur = Tools.saisieNumero(longNbAleaConf);
-            logger.info("Le joueur saisi la combinaison secrète que l'ordinateur doit deviner: "+codeSecretUtilisateur);
+            logger.info("Le joueur saisi la combinaison secrète que l'ordinateur doit deviner: " + codeSecretUtilisateur);
 
             reponseOrdi = Tools.geneNbAlea(longNbAleaConf, 1, 9);
 
             //Ici l'ordinateur doit générer une nouvelle réponse en fonction de la variable choix
             do {
                 numeroTour++;
-                logger.info("Le numéro du tour est: "+numeroTour);
+                logger.info("Le numéro du tour est: " + numeroTour);
                 reponseEnSigne.delete(0, reponseEnSigne.length());
                 Tools.affichageTour(numeroTour, nombreTourConf);
 
                 //On récupère ici la réponse de l'utilisateur
                 System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
-                logger.info("L'ordinateur donne comme réponse : "+reponseOrdi);
+                logger.info("L'ordinateur donne comme réponse : " + reponseOrdi);
                 System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
                 saisieUtilisateur = Tools.saisieSignes(longNbAleaConf);
-                logger.info("Le joueur donne comme réponse: "+saisieUtilisateur);
+                logger.info("Le joueur donne comme réponse: " + saisieUtilisateur);
                 System.out.println("Vous avez saisi: " + saisieUtilisateur);
 
                 reponseEnSigne.append(saisieUtilisateur); //On passe en StringBuilder afin de pouvoir utiliser la méthode combinaisonValide dans Tools
@@ -195,10 +198,10 @@ public class PlusOuMoins {
                 mainGameDef(longNbAleaConf, saisieUtilisateur, reponseOrdi, r);
 
                 winLoose = Tools.combinaisonValide(reponseEnSigne, longNbAleaConf);
-            } while  (!winLoose && numeroTour < nombreTourConf );
+            } while (!winLoose && numeroTour < nombreTourConf);
             Tools.winLoose(winLoose);
             replay = menu.finDePArtie();
-        }
+        }while (replay);
     }
 
     /**
@@ -206,11 +209,12 @@ public class PlusOuMoins {
      */
     public void plusOuMoinsDuel() {
 
-        boolean replay = true;
+        Menu menu = new Menu(devModeArgs);
 
-        while (replay == true) {
+        boolean replay = false;
 
-            replay = false ;
+        do {
+
 
             Random r = new Random();
 
@@ -240,22 +244,22 @@ public class PlusOuMoins {
             System.out.println("Veuillez saisir le nombre que l'ordinateur doit deviner ! (" + longNbAleaConf + " chiffres)");
             logger.info("Le jouer doit saisir le nombre que l'ordinateur doit trouver");
             codeSecretUtilisateur = Tools.saisieNumero(longNbAleaConf);
-            logger.info("La combinaison que l'ordinateur doit deviner est: "+codeSecretUtilisateur);
+            logger.info("La combinaison que l'ordinateur doit deviner est: " + codeSecretUtilisateur);
 
             do {
                 //On incrémente le numéro du tour + display du tour en cours
                 numeroTour++;
-                logger.info("Le numéro du tour est "+numeroTour);
+                logger.info("Le numéro du tour est " + numeroTour);
                 Tools.affichageTour(numeroTour, nombreTourConf);
 
                 logger.info("L'ordinateur joue");
                 //L'ordinateur affiche sa première tentative, pour chaque chiffre l'utilisateur indique +, = ou -
                 System.out.println("L'ordinateur vous donne comme réponse : " + reponseOrdi);
-                logger.info("L'ordinateur donne comme réponse : "+reponseOrdi);
+                logger.info("L'ordinateur donne comme réponse : " + reponseOrdi);
                 System.out.println("Pour chaque nombre, indiquer + ou - ou = (pour rappel, votre code secret est " + codeSecretUtilisateur + ")");
                 saisieUtilisateur = Tools.saisieSignes(longNbAleaConf);
                 System.out.println("Vous avez saisi: " + saisieUtilisateur);
-                logger.info("L'utilisateur donne comme réponse : "+saisieUtilisateur);
+                logger.info("L'utilisateur donne comme réponse : " + saisieUtilisateur);
 
                 mainGameDef(longNbAleaConf, saisieUtilisateur, reponseOrdi, r); //On génère une nouvelle réponse en fonction de la réponse de l'utilisateur
                 reponseEnSigne.delete(0, reponseEnSigne.length()); //On supprime la réponse de l'utilisateur pour la prochaine tentative afin de ne pas mettre bout à bout ses réponses
@@ -272,16 +276,16 @@ public class PlusOuMoins {
                     reponse.delete(0, longNbAleaConf);//On réinitialise la réponse afin de ne pas mettre bout à bout les réponses
 
                     //Demande de saisie utillisateur
-                        System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
-                        choix = Tools.saisieNumero(longNbAleaConf);
+                    System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
+                    choix = Tools.saisieNumero(longNbAleaConf);
 
                     reponse = mainGameChal(longNbAleaConf, choix, nbAlea); //On génère la réponse de l'ordinateur en signe.
                     winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);//On regarde si l'utilisateur à gagné
                     gagnant = 2;
                 }
-            }while (!winLoose);
+            } while (!winLoose);
             Tools.gagnant(gagnant);
             replay = menu.finDePArtie();
-        }
+        }while (replay);
     }
 }
