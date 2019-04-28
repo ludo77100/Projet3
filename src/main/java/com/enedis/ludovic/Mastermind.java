@@ -193,7 +193,7 @@ public class Mastermind {
                 Tools.affichageTour(numeroTour, nombreTourConf);
                 logger.info("Le numéro du tour est: " + numeroTour);
 
-                tentativeCombinaison = mainGameDef(tentativeCombinaison, combinaisonSecrete);
+                mainGameDef(tentativeCombinaison, combinaisonSecrete);
                 logger.info("La tentative de l'ordinateur est: " + tentativeCombinaison);
 
                 System.out.println(tentativeCombinaison);

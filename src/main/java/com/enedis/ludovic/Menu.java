@@ -30,29 +30,39 @@ public class Menu {
         int devMode = config.getIntPropertiesByName("devMode");
 
         if (devModeArgs.equals("dm"))
-            devMode = 1 ;
+            devMode = 1;
 
         PlusOuMoins plusOuMoins = new PlusOuMoins(longNbAlea, nombreDeTour, devMode);
         plusOuMoins.setMenu(this);
         Mastermind mastermind = new Mastermind(longNbAlea, nombreDeTour, nombreChiffreUtilisables, devMode);
         mastermind.setMenu(this);
 
-        int choixJeu;
-        int choixMode;
+        int choixJeu = 0;
+        int choixMode = 0;
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Veuillez choisir votre jeux");
-        System.out.println("1: Recherche +/-");
-        System.out.println("2: Mastermind");
-        choixJeu = sc.nextInt();
-        logger.info("Demande du choix du jeu");
+        try {
+            System.out.println("Veuillez choisir votre jeux");
+            System.out.println("1: Recherche +/-");
+            System.out.println("2: Mastermind");
+            choixJeu = sc.nextInt();
+            logger.info("Demande du choix du jeu");
+        }catch (java.util.InputMismatchException e){
+            System.out.println("Merci de ne saisir que des chiffres");
+            gameChoice();
+        }
         switch (choixJeu) {
             case 1:
                 logger.info("L'utilisateur choisit le Plus ou Moins");
                 Messages.plusOuMoins();
-                System.out.println("Veuilez choisir votre mode de jeu. 1 - Challenger, 2 - Défenseur, 3 - Duel");
-                choixMode = sc.nextInt();
-                logger.info("Demande du choix du mode (Plus ou Moins)");
+                try {
+                    System.out.println("Veuilez choisir votre mode de jeu. 1 - Challenger, 2 - Défenseur, 3 - Duel");
+                    choixMode = sc.nextInt();
+                    logger.info("Demande du choix du mode (Plus ou Moins)");
+                }catch (java.util.InputMismatchException e){
+                    System.out.println("Merci de ne saisir que des chiffres");
+                    gameChoice();
+                }
                 switch (choixMode) {
                     case 1:
                         logger.info("L'utilisateur choisit le mode challenger");
@@ -79,9 +89,14 @@ public class Menu {
             case 2:
                 logger.info("L'utilisateur choisi le Mastermind");
                 Messages.mastermind();
-                System.out.println("Veuilez choisir votre mode de jeu. 1 - Challenger, 2 - Défenseur, 3 - Duel");
-                choixMode = sc.nextInt();
-                logger.info("Choix du mode (Mastermind)");
+                try {
+                    System.out.println("Veuilez choisir votre mode de jeu. 1 - Challenger, 2 - Défenseur, 3 - Duel");
+                    choixMode = sc.nextInt();
+                    logger.info("Choix du mode (Mastermind)");
+                }catch (java.util.InputMismatchException e){
+                    System.out.println("Merci de ne saisir que des chiffres");
+                    gameChoice();
+                }
                 switch (choixMode) {
                     case 1:
                         logger.info("L'utilisateur choisit le mode challenger");
@@ -119,28 +134,35 @@ public class Menu {
      * @return retourne le boolean qui permet de refaire une nouvelle partie
      */
     public boolean finDePArtie() {
+        int replay = 0;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Que souhaitez vous faire ? 1: Rejouer -- 2: Choisir un autre jeu --3: Quitter");
-        logger.info("Choix de fin de partie");
-        int replay = sc.nextInt();
-        switch (replay) {
-            case 1:
-                logger.info("L'utilisateur choisi de rejouer");
-                return true;
-            case 2:
-                logger.info("L'utilisateur choisi de jouer un autre jeu");
-                gameChoice();
-                break;
-            case 3:
-                logger.info("L'utilisateur choisi de quitter");
-                System.out.println("Merci d'avoir joué, à bientot !");
-                break;
-            default:
-                logger.info("Mauvaise saisi dans le choix de l'action de fin de partie");
-                System.out.println("Merci de saisir un nombre compris entre 1 et 3");
-                gameChoice();
-                break;
+        try {
+            System.out.println("Que souhaitez vous faire ? 1: Rejouer -- 2: Choisir un autre jeu --3: Quitter");
+            logger.info("Choix de fin de partie");
+            replay = sc.nextInt();
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("Merci de ne saisir que des chiffres");
+            logger.info("La saisie n'est pas correct");
+            finDePArtie();
         }
-        return false;
+            switch (replay) {
+                case 1:
+                    logger.info("L'utilisateur choisi de rejouer");
+                    return true;
+                case 2:
+                    logger.info("L'utilisateur choisi de jouer un autre jeu");
+                    gameChoice();
+                    break;
+                case 3:
+                    logger.info("L'utilisateur choisi de quitter");
+                    System.out.println("Merci d'avoir joué, à bientot !");
+                    break;
+                default:
+                    logger.info("Mauvaise saisi dans le choix de l'action de fin de partie");
+                    System.out.println("Merci de saisir un nombre compris entre 1 et 3");
+                    gameChoice();
+                    break;
+            }
+            return false;
+        }
     }
-}
