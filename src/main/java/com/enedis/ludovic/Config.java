@@ -13,7 +13,7 @@ public class Config {
 
     /**
      * Cette méthode permet de charger le fichier de config
-     * @param filePath
+     * @param filePath chemin du fichier de config
      */
     public Config(String filePath) {
 
