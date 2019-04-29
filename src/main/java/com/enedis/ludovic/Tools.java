@@ -185,42 +185,29 @@ public class Tools {
 
         String saisieUtil;
         Scanner sc = new Scanner(System.in);
-        boolean saisieCorrect = false;
-        boolean entreBornes = false;
+        boolean saisieCorrect ;
+        boolean saisieTotalOk = false;
 
         do {
-            do {
-                do {
-                    logger.info("Demande de saisie d'une tentative de combinaison au joueur");
-                    System.out.println("Veuillez saisir une combinaison (" + longNbAleaConf + " chiffres), compris entre "+lowBound+" et "+highBound);
+                    logger.info("Demande de saisie au joueur");
+                    System.out.println("Merci de saisir " + longNbAleaConf + " chiffres, compris entre "+lowBound+" et "+highBound);
                     saisieUtil = sc.next();
-                    if (saisieUtil.length() != longNbAleaConf) {
-                        logger.info("La longueur de la combinaison n'est pas la bonne");
-                        System.out.println("La longueur de votre combinaison n'est pas la bonne");
+                    if (saisieUtil.length() == longNbAleaConf) {
+                        for (int i = 0; i < longNbAleaConf; i++) {
+                            int y = Character.getNumericValue(saisieUtil.charAt(i));
+                            saisieCorrect = isDigit(saisieUtil.charAt(i));
+                            if (y >= lowBound && y <= highBound && saisieCorrect) {
+                                saisieTotalOk = true;
+                            } else {
+                                saisieTotalOk = false;
+                                logger.info("La saisie ne comporte pas que des chiffres ou n'est pas compris entre les bornes");
+                                break;
+                            }
+                        }
+                    } else {
+                        logger.info("La saisie n'est pas de la bonne longueur");
                     }
-                } while (saisieUtil.length() != longNbAleaConf);
-                for (int i = 0; i < longNbAleaConf; i++) {
-                    saisieCorrect = isDigit(saisieUtil.charAt(i));
-                    if (!saisieCorrect) {
-                        logger.info("La combinaison ne comporte pas que des chiffres");
-                        System.out.println("Merci de ne saisir que des chiffres");
-                        break;
-                    }
-                }
-            } while (!saisieCorrect);
-            for (int i = 0; i < longNbAleaConf; i++){
-                int y = Character.getNumericValue(saisieUtil.charAt(i));
-                if (y >= lowBound && y <= highBound){
-                    entreBornes = true ;
-
-                }else{
-                    entreBornes = false;
-                    logger.info("Les chiffres de la combinaison se sont pas compris entre "+lowBound+" et "+highBound);
-                    System.out.println("Les chiffres de la combinaison doivent être compris entre "+lowBound+" et "+highBound);
-                    break;
-                }
-            }
-        }while (!entreBornes);
+        }while (!saisieTotalOk);
         return saisieUtil;
     }
 }
