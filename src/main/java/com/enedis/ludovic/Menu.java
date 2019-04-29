@@ -36,7 +36,7 @@ public class Menu {
         mastermind.setMenu(this);
 
         String choixJeu ;
-        String choixMode = new String() ;
+        String choixMode ;
 
             System.out.println("Veuillez choisir votre jeux");
             System.out.println("1: Recherche +/-");
