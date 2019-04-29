@@ -111,42 +111,6 @@ public class Tools {
     }
 
     /**
-     * Cette méthode permet de récuperer la saisie de l'utilisateur
-     *
-     * @param longNbAleaConf longueur du nombre aléatoire
-     * @return la saisie de l'utilisateur de longueur longNbAleaConf en String
-     */
-    public static String saisieNumero(int longNbAleaConf){
-
-        String saisieUtil;
-        Scanner sc = new Scanner(System.in);
-        boolean saisieCorrect = false;
-
-        do{
-            do {
-                System.out.println("Veuillez saisir un nombre (" + longNbAleaConf + " chiffres)");
-                logger.info("Demande de saisie d'une combinaison secrète au joueur");
-                saisieUtil = sc.next();
-
-                if (saisieUtil.length() == longNbAleaConf) {
-                    logger.info("Le joueur saisi comme combinaison: " + saisieUtil);
-                }else {
-                    logger.info("La saisie du joueur ne respecte pas la bonne longueur");
-                }
-
-            }while (saisieUtil.length() != longNbAleaConf);
-            for (int i = 0; i < longNbAleaConf; i++) {
-                saisieCorrect = isDigit(saisieUtil.charAt(i));
-                if (!saisieCorrect){
-                    logger.info("La saisie du joueur est incorecte");
-                    break;
-                }
-            }
-        }while (!saisieCorrect);
-        return saisieUtil;
-    }
-
-    /**
      * Cette méthode permet de récuperer la saisie de l'utilisateur, elle ne récupère que les signes =, - ou + et les retourne en String
      * Elle vérifie également que la saisie est de la bonne longueur
      *
@@ -175,13 +139,13 @@ public class Tools {
     }
 
     /**
-     * Cette méthode permet de récupérer la saisie de l'utilisateur pour le mastermind
+     * Cette méthode permet de récupérer la saisie de l'utilisateur, d'une bonne longueur, avec que des chiffres et compris dans les bonne bornes
      * @param longNbAleaConf longueur du nombre aléatoire
      * @param lowBound limite basse de saisie
      * @param highBound limite haute de saisie
      * @return la saisie de l'utilisateur
      */
-    public static String saisieNumeroMastermind(int longNbAleaConf, int lowBound, int highBound){
+    public static String saisieNumero(int longNbAleaConf, int lowBound, int highBound){
 
         String saisieUtil;
         Scanner sc = new Scanner(System.in);

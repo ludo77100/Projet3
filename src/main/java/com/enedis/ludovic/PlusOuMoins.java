@@ -93,7 +93,7 @@ public class PlusOuMoins {
                 logger.info("Le numéro du Tour est: " + numeroTour);
                 Tools.affichageTour(numeroTour, nombreTourConf);
 
-                choix = Tools.saisieNumero(longNbAleaConf);
+                choix = Tools.saisieNumero(longNbAleaConf,1, 9);
 
                 reponseEnSigneOrdinateur = mainGameChal(longNbAleaConf, choix, combinaisonSecreteOrdinateur);
                 winLoose = Tools.combinaisonValide(reponseEnSigneOrdinateur, longNbAleaConf);
@@ -165,7 +165,7 @@ public class PlusOuMoins {
 
             //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
             System.out.println("L'ordinateur doit deviner votre combinaison !");
-            combinaisonSecreteUtilisateur = Tools.saisieNumero(longNbAleaConf);
+            combinaisonSecreteUtilisateur = Tools.saisieNumero(longNbAleaConf, 1, 9);
             logger.info("Le joueur saisi la combinaison secrète que l'ordinateur doit deviner: " + combinaisonSecreteUtilisateur);
 
             tentativeOrdinateur = Tools.geneNbAlea(longNbAleaConf, 1, 9);
@@ -233,7 +233,7 @@ public class PlusOuMoins {
             //On récupère le nombre de l'utilisateur que l'ordinateur doit deviner
             System.out.println("Veuillez saisir le nombre que l'ordinateur doit deviner ! (" + longNbAleaConf + " chiffres)");
             logger.info("Le jouer doit saisir le nombre que l'ordinateur doit trouver");
-            codeSecretUtilisateur = Tools.saisieNumero(longNbAleaConf);
+            codeSecretUtilisateur = Tools.saisieNumero(longNbAleaConf, 1, 9);
             logger.info("La combinaison que l'ordinateur doit deviner est: " + codeSecretUtilisateur);
 
             do {
@@ -267,7 +267,7 @@ public class PlusOuMoins {
 
                     //Demande de saisie utillisateur
                     System.out.println("Veuillez saisir un nombre(" + longNbAleaConf + " chiffres)");
-                    choix = Tools.saisieNumero(longNbAleaConf);
+                    choix = Tools.saisieNumero(longNbAleaConf,1,9);
 
                     reponse = mainGameChal(longNbAleaConf, choix, nbAlea); //On génère la réponse de l'ordinateur en signe.
                     winLoose = Tools.combinaisonValide(reponse, longNbAleaConf);//On regarde si l'utilisateur à gagné

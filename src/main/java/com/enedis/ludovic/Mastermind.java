@@ -48,7 +48,7 @@ public class Mastermind {
         String recupSaisieUtilisateur;
 
         //Demande au joueur de saisir sa tentative pour trouver la combinaison secrète
-        recupSaisieUtilisateur = Tools.saisieNumeroMastermind(longNbAleaConf, 0, nombreChiffresUtilisables);
+        recupSaisieUtilisateur = Tools.saisieNumero(longNbAleaConf, 0, nombreChiffresUtilisables);
         logger.info("La tentative est: " + recupSaisieUtilisateur);
         tentativeCombinaison.append(recupSaisieUtilisateur);
 
@@ -180,7 +180,7 @@ public class Mastermind {
 
             //L'utilisateur décide de la combinaison secrète
             System.out.println("Veuillez saisir la combinaison secrète que l'ordinateur doit deviner");
-            recupSaisieUtilisateur = Tools.saisieNumeroMastermind(longNbAleaConf, 0, nombreChiffresUtilisables);
+            recupSaisieUtilisateur = Tools.saisieNumero(longNbAleaConf, 0, nombreChiffresUtilisables);
             logger.info("L'utilisateur décide de la combinaison que l'ordinateur doit deviner: " + recupSaisieUtilisateur);
             combinaisonSecrete.append(recupSaisieUtilisateur);
 
@@ -243,7 +243,7 @@ public class Mastermind {
                 Tools.devMode(combinaisonSecreteJoueur);
 
             System.out.println("Veuillez saisir la combinaison secrète que l'ordinateur doit deviner:");
-            recupSaisieUtilisateur = Tools.saisieNumeroMastermind(longNbAleaConf, 0, nombreChiffresUtilisables);
+            recupSaisieUtilisateur = Tools.saisieNumero(longNbAleaConf, 0, nombreChiffresUtilisables);
             logger.info("L'utilisateur décide de la combinaison que l'ordinateur doit deviner: " + recupSaisieUtilisateur);
             combinaisonSecreteOrdi.append(recupSaisieUtilisateur);
 
