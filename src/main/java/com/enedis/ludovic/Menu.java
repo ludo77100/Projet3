@@ -3,8 +3,6 @@ package com.enedis.ludovic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Scanner;
-
 /**
  * Classe pour l'affichage des menus et les selections de jeu, mode et choix de fin de partie
  */
@@ -37,93 +35,64 @@ public class Menu {
         Mastermind mastermind = new Mastermind(longNbAlea, nombreDeTour, nombreChiffreUtilisables, devMode);
         mastermind.setMenu(this);
 
-        int choixJeu = 0;
-        int choixMode = 0;
-        Scanner sc = new Scanner(System.in);
+        String choixJeu ;
+        String choixMode = new String() ;
 
-        try {
             System.out.println("Veuillez choisir votre jeux");
             System.out.println("1: Recherche +/-");
             System.out.println("2: Mastermind");
-            choixJeu = sc.nextInt();
+            choixJeu = Tools.saisieNumero(1, 1,3);
             logger.info("Demande du choix du jeu");
-        }catch (java.util.InputMismatchException e){
-            System.out.println("Merci de ne saisir que des chiffres");
-            gameChoice();
-        }
+
         switch (choixJeu) {
-            case 1:
+            case "1":
                 logger.info("L'utilisateur choisit le Plus ou Moins");
                 Messages.plusOuMoins();
-                try {
                     System.out.println("Veuilez choisir votre mode de jeu. 1 - Challenger, 2 - Défenseur, 3 - Duel");
-                    choixMode = sc.nextInt();
+                    choixMode = Tools.saisieNumero(1, 1,3);
                     logger.info("Demande du choix du mode (Plus ou Moins)");
-                }catch (java.util.InputMismatchException e){
-                    System.out.println("Merci de ne saisir que des chiffres");
-                    gameChoice();
-                }
                 switch (choixMode) {
-                    case 1:
+                    case "1":
                         logger.info("L'utilisateur choisit le mode challenger");
                         System.out.println("Bienvenue dans le +/-, mode Challenger !");
                         plusOuMoins.plusOuMoinsChallenger();
                         break;
-                    case 2:
+                    case "2":
                         logger.info("L'utilisateur choisit le mode défenseur");
                         System.out.println("Bienvenue dans le +/-, mode Défenseur !");
                         plusOuMoins.plusOuMoinsDefenseur();
                         break;
-                    case 3:
+                    case "3":
                         logger.info("L'utilisateur choisit le mode duel");
                         System.out.println("Bievenue dans le +/-, mode duel !");
                         plusOuMoins.plusOuMoinsDuel();
                         break;
-                    default:
-                        logger.info("Mauvaise saisie dans le choix du mode (Plus ou Moins)");
-                        System.out.println("Merci de saisir un nombre compris entre 1 et 3");
-                        gameChoice();
-                        break;
                 }
                 break;
-            case 2:
+            case "2":
                 logger.info("L'utilisateur choisi le Mastermind");
                 Messages.mastermind();
-                try {
                     System.out.println("Veuilez choisir votre mode de jeu. 1 - Challenger, 2 - Défenseur, 3 - Duel");
-                    choixMode = sc.nextInt();
+                    choixMode = Tools.saisieNumero(1, 1,3);
                     logger.info("Choix du mode (Mastermind)");
-                }catch (java.util.InputMismatchException e){
-                    System.out.println("Merci de ne saisir que des chiffres");
-                    gameChoice();
-                }
+
                 switch (choixMode) {
-                    case 1:
+                    case "1":
                         logger.info("L'utilisateur choisit le mode challenger");
                         System.out.println("Bienvenue dans le Mastermind, mode Challenger !");
                         mastermind.mastermindChallenger();
                         break;
-                    case 2:
+                    case "2":
                         logger.info("L'utilisateur choisit le mode défenseur");
                         System.out.println("Bienvenue dans le Mastermind, mode Défenseur !");
                         mastermind.mastermindDefenseur();
                         break;
-                    case 3:
+                    case "3":
                         logger.info("L'utilisateur choisit le mode duel");
                         System.out.println("Bievenue dans le Mastermind, mode duel !");
                         mastermind.mastermindDuel();
                         break;
-                    default:
-                        logger.info("L'utilisateur saisi un choix non possible");
-                        System.out.println("Mauvaise saisie dans le choix du mode (Mastermind)");
-                        gameChoice();
-                        break;
                 }
-                break;
-            default:
-                logger.info("Mauvaise saisie dans le choix du jeu");
-                System.out.println("Merci de saisir un nombre compris entre 1 et 3");
-                gameChoice();
                 break;
         }
     }
@@ -134,33 +103,21 @@ public class Menu {
      * @return retourne le boolean qui permet de refaire une nouvelle partie
      */
     public boolean finDePArtie() {
-        int replay = 0;
-        Scanner sc = new Scanner(System.in);
-        try {
+        String replay ;
             System.out.println("Que souhaitez vous faire ? 1: Rejouer -- 2: Choisir un autre jeu --3: Quitter");
             logger.info("Choix de fin de partie");
-            replay = sc.nextInt();
-        } catch (java.util.InputMismatchException e) {
-            System.out.println("Merci de ne saisir que des chiffres");
-            logger.info("La saisie n'est pas correct");
-            finDePArtie();
-        }
+            replay = Tools.saisieNumero(1, 1,3);
             switch (replay) {
-                case 1:
+                case "1":
                     logger.info("L'utilisateur choisi de rejouer");
                     return true;
-                case 2:
+                case "2":
                     logger.info("L'utilisateur choisi de jouer un autre jeu");
                     gameChoice();
                     break;
-                case 3:
+                case "3":
                     logger.info("L'utilisateur choisi de quitter");
                     System.out.println("Merci d'avoir joué, à bientot !");
-                    break;
-                default:
-                    logger.info("Mauvaise saisi dans le choix de l'action de fin de partie");
-                    System.out.println("Merci de saisir un nombre compris entre 1 et 3");
-                    gameChoice();
                     break;
             }
             return false;
