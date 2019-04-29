@@ -111,42 +111,6 @@ public class Tools {
     }
 
     /**
-     * Cette méthode permet de récuperer la saisie de l'utilisateur
-     *
-     * @param longNbAleaConf longueur du nombre aléatoire
-     * @return la saisie de l'utilisateur de longueur longNbAleaConf en String
-     */
-    public static String saisieNumero(int longNbAleaConf){
-
-        String saisieUtil;
-        Scanner sc = new Scanner(System.in);
-        boolean saisieCorrect = false;
-
-        do{
-            do {
-                System.out.println("Veuillez saisir un nombre (" + longNbAleaConf + " chiffres)");
-                logger.info("Demande de saisie d'une combinaison secrète au joueur");
-                saisieUtil = sc.next();
-
-                if (saisieUtil.length() == longNbAleaConf) {
-                    logger.info("Le joueur saisi comme combinaison: " + saisieUtil);
-                }else {
-                    logger.info("La saisie du joueur ne respecte pas la bonne longueur");
-                }
-
-            }while (saisieUtil.length() != longNbAleaConf);
-            for (int i = 0; i < longNbAleaConf; i++) {
-                saisieCorrect = isDigit(saisieUtil.charAt(i));
-                if (!saisieCorrect){
-                    logger.info("La saisie du joueur est incorecte");
-                    break;
-                }
-            }
-        }while (!saisieCorrect);
-        return saisieUtil;
-    }
-
-    /**
      * Cette méthode permet de récuperer la saisie de l'utilisateur, elle ne récupère que les signes =, - ou + et les retourne en String
      * Elle vérifie également que la saisie est de la bonne longueur
      *
@@ -159,68 +123,58 @@ public class Tools {
         boolean test = false ;
         Scanner sc = new Scanner(System.in);
         do {
-            do {
                 System.out.println("Merci de saisir votre réponse ("+longNbAleaConf+" signes)");
                 saisie = sc.next();
-            } while (saisie.length() != longNbAleaConf);
-            for (int i = 0; i < longNbAleaConf; i++)
-                if (saisie.charAt(i) != '+' && saisie.charAt(i) != '-' && saisie.charAt(i) != '='){
-                    test = false;
-                    break;
-        }else{
-                    test = true;
-                }
+            if (saisie.length() == longNbAleaConf) {
+                for (int i = 0; i < longNbAleaConf; i++)
+                    if (saisie.charAt(i) != '+' && saisie.charAt(i) != '-' && saisie.charAt(i) != '=') {
+                        test = false;
+                        break;
+                    } else {
+                        test = true;
+                    }
+            }else{
+                logger.info("La saisie n'est pas de la bonne longueur");
+                System.out.println("Votre saisie n'est pas de la bonne longueur, merci d'essayer à nouveau");
+            }
         }while (!test);
         return saisie;
     }
 
     /**
-     * Cette méthode permet de récupérer la saisie de l'utilisateur pour le mastermind
+     * Cette méthode permet de récupérer la saisie de l'utilisateur, d'une bonne longueur, avec que des chiffres et compris dans les bonne bornes
      * @param longNbAleaConf longueur du nombre aléatoire
      * @param lowBound limite basse de saisie
      * @param highBound limite haute de saisie
      * @return la saisie de l'utilisateur
      */
-    public static String saisieNumeroMastermind(int longNbAleaConf, int lowBound, int highBound){
+    public static String saisieNumero(int longNbAleaConf, int lowBound, int highBound){
 
         String saisieUtil;
         Scanner sc = new Scanner(System.in);
-        boolean saisieCorrect = false;
-        boolean entreBornes = false;
+        boolean saisieCorrect ;
+        boolean saisieTotalOk = false;
 
         do {
-            do {
-                do {
-                    logger.info("Demande de saisie d'une tentative de combinaison au joueur");
-                    System.out.println("Veuillez saisir une combinaison (" + longNbAleaConf + " chiffres), compris entre "+lowBound+" et "+highBound);
+                    logger.info("Demande de saisie au joueur");
+                    System.out.println("Merci de saisir " + longNbAleaConf + " chiffres, compris entre "+lowBound+" et "+highBound);
                     saisieUtil = sc.next();
-                    if (saisieUtil.length() != longNbAleaConf) {
-                        logger.info("La longueur de la combinaison n'est pas la bonne");
-                        System.out.println("La longueur de votre combinaison n'est pas la bonne");
+                    if (saisieUtil.length() == longNbAleaConf) {
+                        for (int i = 0; i < longNbAleaConf; i++) {
+                            int y = Character.getNumericValue(saisieUtil.charAt(i));
+                            saisieCorrect = isDigit(saisieUtil.charAt(i));
+                            if (y >= lowBound && y <= highBound && saisieCorrect) {
+                                saisieTotalOk = true;
+                            } else {
+                                saisieTotalOk = false;
+                                logger.info("La saisie ne comporte pas que des chiffres ou n'est pas compris entre les bornes");
+                                break;
+                            }
+                        }
+                    } else {
+                        logger.info("La saisie n'est pas de la bonne longueur");
                     }
-                } while (saisieUtil.length() != longNbAleaConf);
-                for (int i = 0; i < longNbAleaConf; i++) {
-                    saisieCorrect = isDigit(saisieUtil.charAt(i));
-                    if (!saisieCorrect) {
-                        logger.info("La combinaison ne comporte pas que des chiffres");
-                        System.out.println("Merci de ne saisir que des chiffres");
-                        break;
-                    }
-                }
-            } while (!saisieCorrect);
-            for (int i = 0; i < longNbAleaConf; i++){
-                int y = Character.getNumericValue(saisieUtil.charAt(i));
-                if (y >= lowBound && y <= highBound){
-                    entreBornes = true ;
-
-                }else{
-                    entreBornes = false;
-                    logger.info("Les chiffres de la combinaison se sont pas compris entre "+lowBound+" et "+highBound);
-                    System.out.println("Les chiffres de la combinaison doivent être compris entre "+lowBound+" et "+highBound);
-                    break;
-                }
-            }
-        }while (!entreBornes);
+        }while (!saisieTotalOk);
         return saisieUtil;
     }
 }
