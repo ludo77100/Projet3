@@ -123,17 +123,20 @@ public class Tools {
         boolean test = false ;
         Scanner sc = new Scanner(System.in);
         do {
-            do {
                 System.out.println("Merci de saisir votre réponse ("+longNbAleaConf+" signes)");
                 saisie = sc.next();
-            } while (saisie.length() != longNbAleaConf);
-            for (int i = 0; i < longNbAleaConf; i++)
-                if (saisie.charAt(i) != '+' && saisie.charAt(i) != '-' && saisie.charAt(i) != '='){
-                    test = false;
-                    break;
-        }else{
-                    test = true;
-                }
+            if (saisie.length() == longNbAleaConf) {
+                for (int i = 0; i < longNbAleaConf; i++)
+                    if (saisie.charAt(i) != '+' && saisie.charAt(i) != '-' && saisie.charAt(i) != '=') {
+                        test = false;
+                        break;
+                    } else {
+                        test = true;
+                    }
+            }else{
+                logger.info("La saisie n'est pas de la bonne longueur");
+                System.out.println("Votre saisie n'est pas de la bonne longueur, merci d'essayer à nouveau");
+            }
         }while (!test);
         return saisie;
     }
