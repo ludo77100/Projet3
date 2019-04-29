@@ -127,7 +127,7 @@ public class Mastermind {
                 System.out.println("Bravo, vous avez gagné");
                 logger.info("Le joueur a gagné, l'ordinateur a perdu");
             } else {
-                System.out.println("Vous avez perdu !");
+                System.out.println("Vous avez perdu ! La combinaison secrète était : "+combinaisonSecrete);
                 logger.info("L'ordinateur a gagné, le joueur a perdu");
             }
             replay = menu.finDePArtie();
