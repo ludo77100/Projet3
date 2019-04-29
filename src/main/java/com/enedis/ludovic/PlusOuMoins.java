@@ -101,7 +101,7 @@ public class PlusOuMoins {
             } while (!winLoose && numeroTour < nombreTourConf);
 
             if (!winLoose) {
-                System.out.println("Vous avez perdu !");
+                System.out.println("Vous avez perdu ! La combinaison secrète était : " +combinaisonSecreteOrdinateur);
                 logger.info("L'ordinateur a gagné, le joueur a perdu");
             } else {
                 System.out.println("Bravo ! Vous avez trouvé la combinaison secrète ! (" + choix + ")");
