@@ -74,7 +74,7 @@ public class Mastermind {
         //Boucle qui vérifie que le pion est dans la combinaison mais pas à la bonne place
         for (int i = 0; i < longNbAleaConf; i++) { // Pour la valeur de la solution de l'ordinateur
             for (int k = 0; k < longNbAleaConf; k++) { //Pour la valeur de la tentative de l'utilisateur
-                char charPositionI = combiOrdi.charAt(i); //On stocke la valeur i de la combinaison secrete
+                char charPositionI = combiOrdi.charAt(i); //On stocke la valeur i de la combinaison secrete que le joueur doit trouver
                 if (tentativeCombinaison.charAt(k) == charPositionI) { //On boucle sur la position k de la tentative de l'utilisateur
                     nombrePositionMauvaise++;
                     tentativeCombinaison.setCharAt(k, 'z');
