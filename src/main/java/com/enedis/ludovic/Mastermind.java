@@ -61,22 +61,23 @@ public class Mastermind {
         //Comparer la réponse de l'utilisateur à la solutions
         //Générer la réponse de l'ordinateur
 
+
+        //Boucle qui vérifie les pions à la bonne place
         for (int i = 0; i < longNbAleaConf; i++) {
             if (combiOrdi.toString().charAt(i) == tentativeCombinaison.charAt(i)) {
                 nombrePositionOk++;
                 tentativeCombinaison.setCharAt(i, 'z'); //Pour ne pas repasser dessus
                 combiOrdi.setCharAt(i, 'y');
-                System.out.println(tentativeCombinaison);
             }
         }
 
+        //Boucle qui vérifie que le pion est dans la combinaison mais pas à la bonne place
         for (int i = 0; i < longNbAleaConf; i++) { // Pour la valeur de la solution de l'ordinateur
             for (int k = 0; k < longNbAleaConf; k++) { //Pour la valeur de la tentative de l'utilisateur
                 char charPositionI = combiOrdi.charAt(i); //On stocke la valeur i de la combinaison secrete
                 if (tentativeCombinaison.charAt(k) == charPositionI) { //On boucle sur la position k de la tentative de l'utilisateur
                     nombrePositionMauvaise++;
                     tentativeCombinaison.setCharAt(k, 'z');
-                    System.out.println(tentativeCombinaison);
                 }
             }
         }
@@ -163,9 +164,11 @@ public class Mastermind {
         }
 
         if (combinaisonSecrete.toString().equals(tentativeCombinaison.toString())) {
+            System.out.println("L'ordinateur tente : "+tentativeCombinaison);
             logger.info("La tentative de combinaison de l'ordinateur est la bonne");
             System.out.println("La tentative de combinaison de l'ordinateur est la bonne !");
         } else {
+            System.out.println("L'ordinateur tente : "+tentativeCombinaison);
             logger.info("La tentative de combinaison de l'ordinateur n'est pas la bonne");
             System.out.println("La tentative de combinaison de l'ordinateur n'est pas la bonne !");
         }
