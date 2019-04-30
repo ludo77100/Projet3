@@ -54,7 +54,7 @@ public class Mastermind {
         logger.info("La tentative est: " + recupSaisieUtilisateur);
         tentativeCombinaison.append(recupSaisieUtilisateur);
 
-        for (int i = 0 ; i < combinaisonSecrete.length(); i++){
+        for (int i = 0 ; i < combinaisonSecrete.length(); i++){ //boucle pour mettre la combinaison en local, sinon elle disparait à la fin
             combiOrdi.append(combinaisonSecrete.charAt(i));
         }
 
@@ -101,6 +101,7 @@ public class Mastermind {
 
         tentativeCombinaison.delete(0, longNbAleaConf);
         combiOrdi.delete(0, longNbAleaConf);
+
         return nombrePositionOk;
     }
 
@@ -158,15 +159,16 @@ public class Mastermind {
                 tentativeCombinaison.deleteCharAt(i);
                 StringBuilder nouveauChiffre = Tools.geneNbAlea(1, 0, longNbAleaConf);
                 tentativeCombinaison.insert(i, nouveauChiffre);
+                System.out.println(tentativeCombinaison);
             }
         }
 
-        if (tentativeCombinaison != combinaisonSecrete) {
-            logger.info("La tentative de combinaison de l'ordinateur n'est pas la bonne");
-            System.out.println("La tentative de combinaison de l'ordinateur n'est pas la bonne !");
-        } else {
+        if (combinaisonSecrete.toString().equals(tentativeCombinaison.toString())) {
             logger.info("La tentative de combinaison de l'ordinateur est la bonne");
             System.out.println("La tentative de combinaison de l'ordinateur est la bonne !");
+        } else {
+            logger.info("La tentative de combinaison de l'ordinateur n'est pas la bonne");
+            System.out.println("La tentative de combinaison de l'ordinateur n'est pas la bonne !");
         }
 
         return tentativeCombinaison;
@@ -206,7 +208,6 @@ public class Mastermind {
                 mainGameDef(tentativeCombinaison, combinaisonSecrete);
                 logger.info("La tentative de l'ordinateur est: " + tentativeCombinaison);
 
-                System.out.println(tentativeCombinaison);
             } while (!tentativeCombinaison.toString().equals(combinaisonSecrete.toString()) && numeroTour < nombreTourConf);
 
             if (!tentativeCombinaison.toString().equals(combinaisonSecrete.toString())) {
