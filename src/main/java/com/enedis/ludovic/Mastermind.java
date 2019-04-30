@@ -159,7 +159,6 @@ public class Mastermind {
                 tentativeCombinaison.deleteCharAt(i);
                 StringBuilder nouveauChiffre = Tools.geneNbAlea(1, 0, longNbAleaConf);
                 tentativeCombinaison.insert(i, nouveauChiffre);
-                System.out.println(tentativeCombinaison);
             }
         }
 
