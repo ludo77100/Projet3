@@ -45,29 +45,38 @@ public class Mastermind {
         int nombreMauvais = 0;
 
         String recupSaisieUtilisateur;
+
         StringBuilder tentativeCombinaison = new StringBuilder();
+        StringBuilder combiOrdi = new StringBuilder();
 
         //Demande au joueur de saisir sa tentative pour trouver la combinaison secrète
         recupSaisieUtilisateur = Tools.saisieNumero(longNbAleaConf, 0, nombreChiffresUtilisables);
         logger.info("La tentative est: " + recupSaisieUtilisateur);
         tentativeCombinaison.append(recupSaisieUtilisateur);
 
+        for (int i = 0 ; i < combinaisonSecrete.length(); i++){
+            combiOrdi.append(combinaisonSecrete.charAt(i));
+        }
+
         //Comparer la réponse de l'utilisateur à la solutions
         //Générer la réponse de l'ordinateur
 
         for (int i = 0; i < longNbAleaConf; i++) {
-            if (combinaisonSecrete.toString().charAt(i) == tentativeCombinaison.charAt(i)) {
+            if (combiOrdi.toString().charAt(i) == tentativeCombinaison.charAt(i)) {
                 nombrePositionOk++;
-                tentativeCombinaison.setCharAt(i, 'z');
+                tentativeCombinaison.setCharAt(i, 'z'); //Pour ne pas repasser dessus
+                combiOrdi.setCharAt(i, 'y');
+                System.out.println(tentativeCombinaison);
             }
         }
 
         for (int i = 0; i < longNbAleaConf; i++) { // Pour la valeur de la solution de l'ordinateur
             for (int k = 0; k < longNbAleaConf; k++) { //Pour la valeur de la tentative de l'utilisateur
-                char charPositionI = combinaisonSecrete.charAt(i); //On stocke la valeur i de la combinaison secrete
+                char charPositionI = combiOrdi.charAt(i); //On stocke la valeur i de la combinaison secrete
                 if (tentativeCombinaison.charAt(k) == charPositionI) { //On boucle sur la position k de la tentative de l'utilisateur
                     nombrePositionMauvaise++;
                     tentativeCombinaison.setCharAt(k, 'z');
+                    System.out.println(tentativeCombinaison);
                 }
             }
         }
@@ -91,6 +100,7 @@ public class Mastermind {
         }
 
         tentativeCombinaison.delete(0, longNbAleaConf);
+        combiOrdi.delete(0, longNbAleaConf);
         return nombrePositionOk;
     }
 
