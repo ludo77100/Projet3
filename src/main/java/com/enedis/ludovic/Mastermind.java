@@ -35,17 +35,17 @@ public class Mastermind {
     /**
      * Cette méthode permet de comparer la réponse de l'utilisateur à la combinaison de l'ordinateur
      *
-     * @param tentativeCombinaison la tentative saisie par l'utilisateur
      * @param combinaisonSecrete   la combinaison généré par l'ordinateur que l'utilisateur doit trouver
      * @return La valeur du nombre de pion en bonne position
      */
-    private int mainGameChal(StringBuilder tentativeCombinaison, StringBuilder combinaisonSecrete) {
+    private int mainGameChal(StringBuilder combinaisonSecrete) {
 
         int nombrePositionOk = 0;
         int nombrePositionMauvaise = 0;
         int nombreMauvais = 0;
 
         String recupSaisieUtilisateur;
+        StringBuilder tentativeCombinaison = new StringBuilder();
 
         //Demande au joueur de saisir sa tentative pour trouver la combinaison secrète
         recupSaisieUtilisateur = Tools.saisieNumero(longNbAleaConf, 0, nombreChiffresUtilisables);
@@ -62,10 +62,10 @@ public class Mastermind {
             }
         }
 
-        for (int i = 0; i < longNbAleaConf; i++) {
-            for (int k = 0; k < longNbAleaConf; k++) {
-                char j = combinaisonSecrete.charAt(i);
-                if (tentativeCombinaison.charAt(k) == j) {
+        for (int i = 0; i < longNbAleaConf; i++) { // Pour la valeur de la solution de l'ordinateur
+            for (int k = 0; k < longNbAleaConf; k++) { //Pour la valeur de la tentative de l'utilisateur
+                char charPositionI = combinaisonSecrete.charAt(i); //On stocke la valeur i de la combinaison secrete
+                if (tentativeCombinaison.charAt(k) == charPositionI) { //On boucle sur la position k de la tentative de l'utilisateur
                     nombrePositionMauvaise++;
                     tentativeCombinaison.setCharAt(k, 'z');
                 }
@@ -105,7 +105,7 @@ public class Mastermind {
             int numeroTour = 0;//Compteur de nombre de tour
             int nombrePositionOk;
 
-            StringBuilder tentativeCombinaison = new StringBuilder();
+
             StringBuilder combinaisonSecrete;
 
             //L'ordinateur doit générer la solution
@@ -119,7 +119,7 @@ public class Mastermind {
                 numeroTour++;
                 Tools.affichageTour(numeroTour, nombreTourConf);
                 logger.info("Le numéro du tour est: " + numeroTour);
-                nombrePositionOk = mainGameChal(tentativeCombinaison, combinaisonSecrete);
+                nombrePositionOk = mainGameChal(combinaisonSecrete);
 
             } while (nombrePositionOk != longNbAleaConf && numeroTour < nombreTourConf);
 
@@ -261,7 +261,7 @@ public class Mastermind {
                 } else {
                     System.out.println("A votre tour, à vous de trouver le nombre de l'ordinateur");
                     logger.info("AU tour du joueur");
-                    nombrePositionOk = mainGameChal(tentativeCombinaisonJoueur, combinaisonSecreteJoueur);
+                    nombrePositionOk = mainGameChal(combinaisonSecreteJoueur);
                     if (nombrePositionOk == longNbAleaConf) {
                         gagnant = 2;
                         break;

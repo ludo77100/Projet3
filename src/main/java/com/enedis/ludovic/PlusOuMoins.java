@@ -31,7 +31,7 @@ public class PlusOuMoins {
     }
 
     /**
-     * Cette méthode permet de générer la réponse en fonction de la réponse de l'utilisateur
+     * Cette méthode permet de générer la réponse en fonction de la réponse de l'utilisateur, elle compare char par char la réponse et la solution
      *
      * @param longNbAleaConf passé dans le fichier conf, longueur du nombre à trouvé
      * @param choix          c'est la réponse rentré par l'utilisateur
@@ -132,19 +132,17 @@ public class PlusOuMoins {
                     break;
                 case ('-'):
                     int y = Character.getNumericValue(reponseOrdi.charAt(i));
-                    if (y > 1) {
-                        int geneNbAleay = 1 + r.nextInt(y + -1);
+                    try {
+                        int geneNbAleay = 1 + r.nextInt(y - 1);
                         reponseOrdi.deleteCharAt(i);
                         reponseOrdi.insert(i, geneNbAleay);
                         break;
-                    } else {
-                        int geneNbAleay = 1 + r.nextInt((y + 1) - 1);
+                    }catch (java.lang.IllegalArgumentException e){
                         reponseOrdi.deleteCharAt(i);
-                        reponseOrdi.insert(i, geneNbAleay);
+                        reponseOrdi.insert(i, 1);
                     }
             }
         }
-        ;
     }
 
     /**
